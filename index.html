@@ -159,7 +159,7 @@
         function updateCountdown() {
             const now = new Date();
 
-            // 會考時間點
+            // 會考時間點 (使用本地時間)
             const examStartDay1 = new Date('2025-05-17T08:20:00');
             const examEndDay1 = new Date('2025-05-17T16:40:00');
             const examStartDay2 = new Date('2025-05-18T08:20:00');
@@ -181,7 +181,6 @@
             } else if (now >= examEndFinal) {
                 titleText = '114年會考已結束 此網站已暫停使用';
                 timeDiff = 0;
-                // 全部歸零並停止更新
                 daysValueElement.innerText = '0';
                 hoursValueElement.innerText = '0';
                 minutesValueElement.innerText = '0';
@@ -190,7 +189,7 @@
                 setCircleProgress(hourCircle, 0, 1);
                 setCircleProgress(minuteCircle, 0, 1);
                 setCircleProgress(secondCircle, 0, 1);
-                clearInterval(intervalId); // 停止計時器
+                clearInterval(intervalId);
                 titleElement.innerText = titleText;
                 return;
             } else {
