@@ -15,157 +15,93 @@
             margin: 0;
         }
 
-        .clock-container {
+        .countdown-container {
             background-color: #222;
             border-radius: 10px;
-            padding: 20px;
+            padding: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #eee;
         }
 
         #date-time {
-            color: #eee;
             font-size: 1.2em;
-            text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .time-segment {
-            display: inline-block;
-            margin: 0 10px;
-        }
-
-        .digit-container {
+        .circle-progress {
             position: relative;
-            width: 60px;
-            height: 80px;
-            overflow: hidden;
-            border-radius: 5px;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
         }
 
-        .digit-front, .digit-back {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .progress-ring {
             width: 100%;
-            height: 50%;
-            background-color: #333;
-            color: #eee;
-            font-size: 2.5em;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
+            height: 100%;
         }
 
-        .digit-front {
-            border-bottom: 1px solid #555;
-            border-radius: 5px 5px 0 0;
-            transform-origin: bottom center;
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
         }
 
-        .digit-back {
-            top: 50%;
-            border-top: 1px solid #555;
-            border-radius: 0 0 5px 5px;
-            transform-origin: top center;
-            transform: rotateX(180deg);
-        }
-
-        .digit-current, .digit-next {
+        .progress-value {
             position: absolute;
-            width: 100%;
-            height: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.5em;
-            color: #eee;
-        }
-
-        .digit-current {
-            top: 0;
-            background-color: #333;
-            border-radius: 5px 5px 0 0;
-            border-bottom: 1px solid #555;
-        }
-
-        .digit-next {
             top: 50%;
-            background-color: #333;
-            border-radius: 0 0 5px 5px;
-            border-top: 1px solid #555;
-            transform: translateY(100%);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
         }
 
-        .label {
-            display: block;
-            font-size: 0.8em;
-            color: #aaa;
-            text-align: center;
-            margin-top: 5px;
-        }
-
-        .time-group {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 10px;
+        #time-left {
+            font-size: 1.5em;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="clock-container">
+    <div class="countdown-container">
         <div id="date-time"></div>
-        <div style="display: flex;">
-            <div class="time-group">
-                <div id="days" class="digit-container">
-                    <div class="digit-current">00</div>
-                    <div class="digit-next">00</div>
-                </div>
-                <div class="label">天</div>
-            </div>
-            <div class="time-group">
-                <div id="hours" class="digit-container">
-                    <div class="digit-current">00</div>
-                    <div class="digit-next">00</div>
-                </div>
-                <div class="label">時</div>
-            </div>
-            <div class="time-group">
-                <div id="minutes" class="digit-container">
-                    <div class="digit-current">00</div>
-                    <div class="digit-next">00</div>
-                </div>
-                <div class="label">分</div>
-            </div>
-            <div class="time-group">
-                <div id="seconds" class="digit-container">
-                    <div class="digit-current">00</div>
-                    <div class="digit-next">00</div>
-                </div>
-                <div class="label">秒</div>
-            </div>
+        <div class="circle-progress">
+            <svg class="progress-ring" width="150" height="150">
+                <circle
+                    class="progress-ring__circle"
+                    stroke="#eee"
+                    stroke-width="8"
+                    fill="transparent"
+                    r="60"
+                    cx="75"
+                    cy="75"
+                    stroke-dasharray="377"
+                    stroke-dashoffset="0"
+                />
+            </svg>
+            <div id="seconds-left" class="progress-value"></div>
         </div>
+        <div id="time-left"></div>
     </div>
 
     <script>
-        const daysElement = document.getElementById('days');
-        const hoursElement = document.getElementById('hours');
-        const minutesElement = document.getElementById('minutes');
-        const secondsElement = document.getElementById('seconds');
         const dateTimeElement = document.getElementById('date-time');
+        const secondsLeftElement = document.getElementById('seconds-left');
+        const timeLeftElement = document.getElementById('time-left');
+        const circle = document.querySelector('.progress-ring__circle');
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
 
-        let currentDays = 0;
-        let currentHours = 0;
-        let currentMinutes = 0;
-        let currentSeconds = 0;
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = circumference;
 
-        function updateClock() {
+        function setProgress(percent) {
+            const offset = circumference - percent / 100 * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        function updateCountdown() {
             const now = new Date();
-            const year = 2025; // 114年
-            const month = 5 - 1; // JavaScript 的月份是從 0 開始
-            const day = 17;
-            const examDate = new Date(year, month, day, 0, 0, 0);
+            const examDate = new Date('2025-05-17T00:00:00');
 
             const nowYear = now.getFullYear();
             const nowMonth = String(now.getMonth() + 1).padStart(2, '0');
@@ -179,43 +115,47 @@
             const timeDiff = examDate.getTime() - now.getTime();
 
             if (timeDiff <= 0) {
-                updateDisplay('days', '00');
-                updateDisplay('hours', '00');
-                updateDisplay('minutes', '00');
-                updateDisplay('seconds', '00');
-                dateTimeElement.innerText = '月考已開始！';
+                secondsLeftElement.innerText = '0';
+                timeLeftElement.innerText = '月考已開始！';
+                setProgress(0);
                 return;
             }
 
-            const daysLeft = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hoursLeft = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutesLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const secondsLeft = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            const totalSecondsLeft = Math.floor(timeDiff / 1000);
+            const daysLeft = Math.floor(totalSecondsLeft / (60 * 60 * 24));
+            const hoursLeft = Math.floor((totalSecondsLeft % (60 * 60 * 24)) / (60 * 60));
+            const minutesLeft = Math.floor((totalSecondsLeft % (60 * 60)) / 60);
+            const secondsLeft = totalSecondsLeft % 60;
 
-            updateDisplay('days', String(daysLeft).padStart(2, '0'));
-            updateDisplay('hours', String(hoursLeft).padStart(2, '0'));
-            updateDisplay('minutes', String(minutesLeft).padStart(2, '0'));
-            updateDisplay('seconds', String(secondsLeft).padStart(2, '0'));
+            secondsLeftElement.innerText = secondsLeft;
+            timeLeftElement.innerText = `${daysLeft} 天 ${hoursLeft} 時 ${minutesLeft} 分`;
+
+            // 計算秒的百分比，用於更新圓圈
+            const totalSecondsInDay = 24 * 60 * 60;
+            const secondsPassedToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            const percentOfDayPassed = (secondsPassedToday / totalSecondsInDay) * 100; // 這不是倒數的百分比
+
+            // 這裡我們用剩餘的總秒數相對於一個假定的總秒數來做演示
+            // 更精確的圓圈應該基於剩餘時間的比例來縮小
+            const initialTotalSeconds = (new Date('2025-05-17T00:00:00').getTime() - new Date().getTime()) / 1000;
+            const remainingPercentage = (totalSecondsLeft / initialTotalSeconds) * 100;
+            setProgress(100 - (totalSecondsLeft / (24 * 60 * 60 * 180)) * 100); // 調整除數以控制縮小速度
+
+            // 一個更簡單的只基於秒的圓圈
+            const secondsInMinute = 60;
+            const secondPercentage = (secondsLeft / secondsInMinute) * 100;
+            // setProgress(100 - secondPercentage); // 如果你想要每分鐘重置的秒針效果
+
+            // 這裡我們讓圓圈基於剩餘總時間緩慢縮小
+            const arbitraryTotalTimeForCircle = 24 * 60 * 60 * 10; // 假設一個較長的時間範圍
+            const remainingTimeRatioForCircle = totalSecondsLeft / arbitraryTotalTimeForCircle;
+            setProgress(Math.max(0, remainingTimeRatioForCircle * 100));
+
+
         }
 
-        function updateDisplay(elementId, newValue) {
-            const element = document.getElementById(elementId);
-            const current = element.querySelector('.digit-current');
-            const next = element.querySelector('.digit-next');
-
-            if (current.innerText !== newValue) {
-                next.innerText = newValue;
-                // 觸發動畫 (簡化，沒有實際滑動)
-                next.style.transform = 'translateY(0)';
-                setTimeout(() => {
-                    current.innerText = newValue;
-                    next.style.transform = 'translateY(100%)';
-                }, 300); // 模擬動畫時間
-            }
-        }
-
-        setInterval(updateClock, 1000);
-        updateClock();
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
     </script>
 </body>
 </html>
