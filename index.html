@@ -9,31 +9,36 @@
             font-family: sans-serif;
             background-color: #f0f0f0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
         }
 
-        .countdown-container {
-            background-color: #222;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            color: #eee;
+        .countdown-title {
+            background-color: #6c757d;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
 
-        #date-time {
-            font-size: 1.2em;
-            margin-bottom: 20px;
+        .circles-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .circle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .circle-progress {
             position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
+            width: 80px;
+            height: 80px;
         }
 
         .progress-ring {
@@ -45,6 +50,25 @@
             transition: stroke-dashoffset 0.35s;
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
+            stroke-width: 8;
+            fill: transparent;
+            r: 32;
+            cx: 40;
+            cy: 40;
+            stroke: #ccc; /* 底色 */
+        }
+
+        .progress-ring__fill {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke-width: 8;
+            fill: transparent;
+            r: 32;
+            cx: 40;
+            cy: 40;
+            stroke-dasharray: 201; /* 圓的周長近似值 */
+            stroke-dashoffset: 201;
         }
 
         .progress-value {
@@ -52,106 +76,114 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2em;
+            font-size: 1.2em;
         }
 
-        #time-left {
-            font-size: 1.5em;
-            margin-top: 10px;
+        .circle-label {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="countdown-container">
-        <div id="date-time"></div>
-        <div class="circle-progress">
-            <svg class="progress-ring" width="150" height="150">
-                <circle
-                    class="progress-ring__circle"
-                    stroke="#eee"
-                    stroke-width="8"
-                    fill="transparent"
-                    r="60"
-                    cx="75"
-                    cy="75"
-                    stroke-dasharray="377"
-                    stroke-dashoffset="0"
-                />
-            </svg>
-            <div id="seconds-left" class="progress-value"></div>
+    <div class="countdown-title">-- 倒數至 114年5月17日 --</div>
+    <div class="circles-container">
+        <div class="circle-item">
+            <div class="circle-progress">
+                <svg class="progress-ring" width="80" height="80">
+                    <circle class="progress-ring__circle"></circle>
+                    <circle class="progress-ring__fill" stroke="#ff6b6b"></circle>
+                </svg>
+                <div id="days-value" class="progress-value"></div>
+            </div>
+            <div class="circle-label">天</div>
         </div>
-        <div id="time-left"></div>
+        <div class="circle-item">
+            <div class="circle-progress">
+                <svg class="progress-ring" width="80" height="80">
+                    <circle class="progress-ring__circle"></circle>
+                    <circle class="progress-ring__fill" stroke="#ffda6b"></circle>
+                </svg>
+                <div id="hours-value" class="progress-value"></div>
+            </div>
+            <div class="circle-label">時</div>
+        </div>
+        <div class="circle-item">
+            <div class="circle-progress">
+                <svg class="progress-ring" width="80" height="80">
+                    <circle class="progress-ring__circle"></circle>
+                    <circle class="progress-ring__fill" stroke="#20c997"></circle>
+                </svg>
+                <div id="minutes-value" class="progress-value"></div>
+            </div>
+            <div class="circle-label">分</div>
+        </div>
+        <div class="circle-item">
+            <div class="circle-progress">
+                <svg class="progress-ring" width="80" height="80">
+                    <circle class="progress-ring__circle"></circle>
+                    <circle class="progress-ring__fill" stroke="#339af0"></circle>
+                </svg>
+                <div id="seconds-value" class="progress-value"></div>
+            </div>
+            <div class="circle-label">秒</div>
+        </div>
     </div>
 
     <script>
-        const dateTimeElement = document.getElementById('date-time');
-        const secondsLeftElement = document.getElementById('seconds-left');
-        const timeLeftElement = document.getElementById('time-left');
-        const circle = document.querySelector('.progress-ring__circle');
-        const radius = circle.r.baseVal.value;
+        const daysValueElement = document.getElementById('days-value');
+        const hoursValueElement = document.getElementById('hours-value');
+        const minutesValueElement = document.getElementById('minutes-value');
+        const secondsValueElement = document.getElementById('seconds-value');
+
+        const dayCircle = document.querySelectorAll('.circle-item')[0].querySelector('.progress-ring__fill');
+        const hourCircle = document.querySelectorAll('.circle-item')[1].querySelector('.progress-ring__fill');
+        const minuteCircle = document.querySelectorAll('.circle-item')[2].querySelector('.progress-ring__fill');
+        const secondCircle = document.querySelectorAll('.circle-item')[3].querySelector('.progress-ring__fill');
+
+        const radius = 32;
         const circumference = 2 * Math.PI * radius;
 
-        circle.style.strokeDasharray = `${circumference} ${circumference}`;
-        circle.style.strokeDashoffset = circumference;
-
-        function setProgress(percent) {
-            const offset = circumference - percent / 100 * circumference;
+        function setCircleProgress(circle, value, max) {
+            const offset = circumference - (value / max) * circumference;
             circle.style.strokeDashoffset = offset;
+            const dashArray = circumference;
+            circle.style.strokeDasharray = dashArray;
         }
 
         function updateCountdown() {
             const now = new Date();
             const examDate = new Date('2025-05-17T00:00:00');
-
-            const nowYear = now.getFullYear();
-            const nowMonth = String(now.getMonth() + 1).padStart(2, '0');
-            const nowDay = String(now.getDate()).padStart(2, '0');
-            const nowHour = String(now.getHours()).padStart(2, '0');
-            const nowMinute = String(now.getMinutes()).padStart(2, '0');
-            const nowSecond = String(now.getSeconds()).padStart(2, '0');
-
-            dateTimeElement.innerText = `${nowYear}-${nowMonth}-${nowDay} ${nowHour}:${nowMinute}:${nowSecond}`;
-
             const timeDiff = examDate.getTime() - now.getTime();
 
             if (timeDiff <= 0) {
-                secondsLeftElement.innerText = '0';
-                timeLeftElement.innerText = '月考已開始！';
-                setProgress(0);
+                daysValueElement.innerText = '0';
+                hoursValueElement.innerText = '0';
+                minutesValueElement.innerText = '0';
+                secondsValueElement.innerText = '0';
+                setCircleProgress(dayCircle, 0, 1);
+                setCircleProgress(hourCircle, 0, 1);
+                setCircleProgress(minuteCircle, 0, 1);
+                setCircleProgress(secondCircle, 0, 1);
                 return;
             }
 
-            const totalSecondsLeft = Math.floor(timeDiff / 1000);
-            const daysLeft = Math.floor(totalSecondsLeft / (60 * 60 * 24));
-            const hoursLeft = Math.floor((totalSecondsLeft % (60 * 60 * 24)) / (60 * 60));
-            const minutesLeft = Math.floor((totalSecondsLeft % (60 * 60)) / 60);
-            const secondsLeft = totalSecondsLeft % 60;
+            const totalSeconds = Math.floor(timeDiff / 1000);
+            const days = Math.floor(totalSeconds / (60 * 60 * 24));
+            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+            const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+            const seconds = totalSeconds % 60;
 
-            secondsLeftElement.innerText = secondsLeft;
-            timeLeftElement.innerText = `${daysLeft} 天 ${hoursLeft} 時 ${minutesLeft} 分`;
+            daysValueElement.innerText = days;
+            hoursValueElement.innerText = hours;
+            minutesValueElement.innerText = minutes;
+            secondsValueElement.innerText = seconds;
 
-            // 計算秒的百分比，用於更新圓圈
-            const totalSecondsInDay = 24 * 60 * 60;
-            const secondsPassedToday = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-            const percentOfDayPassed = (secondsPassedToday / totalSecondsInDay) * 100; // 這不是倒數的百分比
-
-            // 這裡我們用剩餘的總秒數相對於一個假定的總秒數來做演示
-            // 更精確的圓圈應該基於剩餘時間的比例來縮小
-            const initialTotalSeconds = (new Date('2025-05-17T00:00:00').getTime() - new Date().getTime()) / 1000;
-            const remainingPercentage = (totalSecondsLeft / initialTotalSeconds) * 100;
-            setProgress(100 - (totalSecondsLeft / (24 * 60 * 60 * 180)) * 100); // 調整除數以控制縮小速度
-
-            // 一個更簡單的只基於秒的圓圈
-            const secondsInMinute = 60;
-            const secondPercentage = (secondsLeft / secondsInMinute) * 100;
-            // setProgress(100 - secondPercentage); // 如果你想要每分鐘重置的秒針效果
-
-            // 這裡我們讓圓圈基於剩餘總時間緩慢縮小
-            const arbitraryTotalTimeForCircle = 24 * 60 * 60 * 10; // 假設一個較長的時間範圍
-            const remainingTimeRatioForCircle = totalSecondsLeft / arbitraryTotalTimeForCircle;
-            setProgress(Math.max(0, remainingTimeRatioForCircle * 100));
-
-
+            setCircleProgress(dayCircle, days, 365); // 假設最多365天
+            setCircleProgress(hourCircle, hours, 24);
+            setCircleProgress(minuteCircle, minutes, 60);
+            setCircleProgress(secondCircle, seconds, 60);
         }
 
         setInterval(updateCountdown, 1000);
