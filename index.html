@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>月考倒數時鐘</title>
+    <title>114年會考倒數</title>
     <style>
         body {
             font-family: sans-serif;
@@ -19,14 +19,15 @@
         .countdown-title {
             background-color: #6c757d;
             color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 1.5em;
         }
 
         .circles-container {
             display: flex;
-            gap: 20px;
+            gap: 30px;
         }
 
         .circle-item {
@@ -37,8 +38,8 @@
 
         .circle-progress {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
         }
 
         .progress-ring {
@@ -50,25 +51,27 @@
             transition: stroke-dashoffset 0.35s;
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
-            stroke-width: 8;
+            stroke-width: 10;
             fill: transparent;
-            r: 32;
-            cx: 40;
-            cy: 40;
-            stroke: #ccc; /* 底色 */
+            r: 48;
+            cx: 60;
+            cy: 60;
+            stroke: #ccc;
+            stroke-linecap: round; /* 圓潤的線帽 */
         }
 
         .progress-ring__fill {
             transition: stroke-dashoffset 0.35s;
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
-            stroke-width: 8;
+            stroke-width: 10;
             fill: transparent;
-            r: 32;
-            cx: 40;
-            cy: 40;
-            stroke-dasharray: 201; /* 圓的周長近似值 */
-            stroke-dashoffset: 201;
+            r: 48;
+            cx: 60;
+            cy: 60;
+            stroke-dasharray: 301.6; /* 圓的周長近似值 */
+            stroke-dashoffset: 301.6;
+            stroke-linecap: round; /* 圓潤的線帽 */
         }
 
         .progress-value {
@@ -76,24 +79,24 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 1.2em;
+            font-size: 1.8em;
         }
 
         .circle-label {
-            margin-top: 5px;
-            font-size: 0.9em;
+            margin-top: 10px;
+            font-size: 1.1em;
             color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="countdown-title">-- 倒數至 114年5月17日 --</div>
+    <div id="countdown-title" class="countdown-title">倒數至 114年會考</div>
     <div class="circles-container">
         <div class="circle-item">
             <div class="circle-progress">
-                <svg class="progress-ring" width="80" height="80">
+                <svg class="progress-ring" width="120" height="120">
                     <circle class="progress-ring__circle"></circle>
-                    <circle class="progress-ring__fill" stroke="#ff6b6b"></circle>
+                    <circle id="days-circle" class="progress-ring__fill" stroke="#ff6b6b"></circle>
                 </svg>
                 <div id="days-value" class="progress-value"></div>
             </div>
@@ -101,9 +104,9 @@
         </div>
         <div class="circle-item">
             <div class="circle-progress">
-                <svg class="progress-ring" width="80" height="80">
+                <svg class="progress-ring" width="120" height="120">
                     <circle class="progress-ring__circle"></circle>
-                    <circle class="progress-ring__fill" stroke="#ffda6b"></circle>
+                    <circle id="hours-circle" class="progress-ring__fill" stroke="#ffda6b"></circle>
                 </svg>
                 <div id="hours-value" class="progress-value"></div>
             </div>
@@ -111,9 +114,9 @@
         </div>
         <div class="circle-item">
             <div class="circle-progress">
-                <svg class="progress-ring" width="80" height="80">
+                <svg class="progress-ring" width="120" height="120">
                     <circle class="progress-ring__circle"></circle>
-                    <circle class="progress-ring__fill" stroke="#20c997"></circle>
+                    <circle id="minutes-circle" class="progress-ring__fill" stroke="#20c997"></circle>
                 </svg>
                 <div id="minutes-value" class="progress-value"></div>
             </div>
@@ -121,9 +124,9 @@
         </div>
         <div class="circle-item">
             <div class="circle-progress">
-                <svg class="progress-ring" width="80" height="80">
+                <svg class="progress-ring" width="120" height="120">
                     <circle class="progress-ring__circle"></circle>
-                    <circle class="progress-ring__fill" stroke="#339af0"></circle>
+                    <circle id="seconds-circle" class="progress-ring__fill" stroke="#339af0"></circle>
                 </svg>
                 <div id="seconds-value" class="progress-value"></div>
             </div>
@@ -132,17 +135,18 @@
     </div>
 
     <script>
+        const titleElement = document.getElementById('countdown-title');
         const daysValueElement = document.getElementById('days-value');
         const hoursValueElement = document.getElementById('hours-value');
         const minutesValueElement = document.getElementById('minutes-value');
         const secondsValueElement = document.getElementById('seconds-value');
 
-        const dayCircle = document.querySelectorAll('.circle-item')[0].querySelector('.progress-ring__fill');
-        const hourCircle = document.querySelectorAll('.circle-item')[1].querySelector('.progress-ring__fill');
-        const minuteCircle = document.querySelectorAll('.circle-item')[2].querySelector('.progress-ring__fill');
-        const secondCircle = document.querySelectorAll('.circle-item')[3].querySelector('.progress-ring__fill');
+        const dayCircle = document.getElementById('days-circle');
+        const hourCircle = document.getElementById('hours-circle');
+        const minuteCircle = document.getElementById('minutes-circle');
+        const secondCircle = document.getElementById('seconds-circle');
 
-        const radius = 32;
+        const radius = 48;
         const circumference = 2 * Math.PI * radius;
 
         function setCircleProgress(circle, value, max) {
@@ -154,10 +158,30 @@
 
         function updateCountdown() {
             const now = new Date();
-            const examDate = new Date('2025-05-17T00:00:00');
-            const timeDiff = examDate.getTime() - now.getTime();
 
-            if (timeDiff <= 0) {
+            // 會考時間點
+            const examStartDay1 = new Date('2025-05-17T08:20:00');
+            const examEndDay1 = new Date('2025-05-17T16:40:00');
+            const examStartDay2 = new Date('2025-05-18T08:20:00');
+            const examEndDay2 = new Date('2025-05-18T12:30:00');
+            const examEndFinal = examEndDay2;
+
+            let timeDiff;
+            let titleText = '倒數至 114年會考';
+
+            if (now >= examStartDay1 && now < examEndDay1) {
+                titleText = '正在進行考試 (第一天)';
+                timeDiff = examEndDay1.getTime() - now.getTime();
+            } else if (now >= examEndDay1 && now < examStartDay2) {
+                titleText = '恭喜你撐過第一天了! 準備第二天的努力吧!';
+                timeDiff = examStartDay2.getTime() - now.getTime();
+            } else if (now >= examStartDay2 && now < examEndDay2) {
+                titleText = '正在進行考試 (第二天)';
+                timeDiff = examEndDay2.getTime() - now.getTime();
+            } else if (now >= examEndFinal) {
+                titleText = '114年會考已結束 此網站已暫停使用';
+                timeDiff = 0;
+                // 全部歸零並停止更新
                 daysValueElement.innerText = '0';
                 hoursValueElement.innerText = '0';
                 minutesValueElement.innerText = '0';
@@ -166,8 +190,14 @@
                 setCircleProgress(hourCircle, 0, 1);
                 setCircleProgress(minuteCircle, 0, 1);
                 setCircleProgress(secondCircle, 0, 1);
+                clearInterval(intervalId); // 停止計時器
+                titleElement.innerText = titleText;
                 return;
+            } else {
+                timeDiff = examStartDay1.getTime() - now.getTime();
             }
+
+            titleElement.innerText = titleText;
 
             const totalSeconds = Math.floor(timeDiff / 1000);
             const days = Math.floor(totalSeconds / (60 * 60 * 24));
@@ -175,19 +205,19 @@
             const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
             const seconds = totalSeconds % 60;
 
-            daysValueElement.innerText = days;
-            hoursValueElement.innerText = hours;
-            minutesValueElement.innerText = minutes;
-            secondsValueElement.innerText = seconds;
+            daysValueElement.innerText = Math.max(0, days);
+            hoursValueElement.innerText = Math.max(0, hours);
+            minutesValueElement.innerText = Math.max(0, minutes);
+            secondsValueElement.innerText = Math.max(0, seconds);
 
-            setCircleProgress(dayCircle, days, 365); // 假設最多365天
-            setCircleProgress(hourCircle, hours, 24);
-            setCircleProgress(minuteCircle, minutes, 60);
-            setCircleProgress(secondCircle, seconds, 60);
+            setCircleProgress(dayCircle, Math.max(0, days), 365);
+            setCircleProgress(hourCircle, Math.max(0, hours), 24);
+            setCircleProgress(minuteCircle, Math.max(0, minutes), 60);
+            setCircleProgress(secondCircle, Math.max(0, seconds), 60);
         }
 
-        setInterval(updateCountdown, 1000);
         updateCountdown();
+        const intervalId = setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
