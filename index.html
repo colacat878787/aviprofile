@@ -3,220 +3,863 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>114年會考倒數</title>
+    <title>阿維喵 Avi - 電競個人檔案</title>
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* CSS Variables for Theme */
+        :root {
+            /* Light Mode Colors */
+            --bg-primary: #e0f7fa; /* Light cyan background */
+            --bg-section: #ffffff; /* Main section background */
+            --bg-section-alt: #f0faff; /* Alternate section background */
+            --text-primary: #2d3748; /* Dark text */
+            --text-secondary: #4a5568; /* Medium gray text */
+            --accent-color: #6366f1; /* Strong Indigo */
+            --accent-light: #818cf8; /* Lighter Indigo */
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --video-card-hover-bg: #e0e7ff; /* Light purple-blue hover */
+            --youtube-red: #ff0000;
+            --youtube-red-hover: #cc0000;
+        }
+
+        body.dark-mode {
+            /* Dark Mode Colors - Optimized for Bright Text */
+            --bg-primary: #0a0a0a; /* Deep dark background */
+            --bg-section: #1a1a1a; /* Darker section background */
+            --bg-section-alt: #2a2a2a; /* Even darker for contrast */
+            --text-primary: #f0f0f0; /* Very bright text */
+            --text-secondary: #c0c0c0; /* Lighter gray text */
+            --accent-color: #00e676; /* Vibrant Green for accents */
+            --accent-light: #00b0ff; /* Vibrant Blue for accents */
+            --shadow-color: rgba(0, 0, 0, 0.6); /* Deeper shadows */
+            --header-bg: rgba(10, 10, 10, 0.95); /* Dark header background */
+            --video-card-hover-bg: #4a5568; /* Darker hover */
+            --youtube-red: #ff4d4d;
+            --youtube-red-hover: #e60000;
+        }
+
+        /* RGB Breathing Colors for animations */
+        /* These are defined as custom properties for smooth transitions where supported */
+        @property --rgb-1-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
+        @property --rgb-1-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
+        @property --rgb-1-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
+
+        @property --rgb-2-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
+        @property --rgb-2-g { syntax: '<integer>'; inherits: false; initial-value: 165; }
+        @property --rgb-2-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
+
+        @property --rgb-3-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
+        @property --rgb-3-g { syntax: '<integer>'; inherits: false; initial-value: 255; }
+        @property --rgb-3-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
+
+        @property --rgb-4-r { syntax: '<integer>'; inherits: false; initial-value: 0; }
+        @property --rgb-4-g { syntax: '<integer>'; inherits: false; initial-value: 255; }
+        @property --rgb-4-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
+
+        @property --rgb-5-r { syntax: '<integer>'; inherits: false; initial-value: 0; }
+        @property --rgb-5-g { syntax: '<integer>'; inherits: false; initial-value: 255; }
+        @property --rgb-5-b { syntax: '<integer>'; inherits: false; initial-value: 255; }
+
+        @property --rgb-6-r { syntax: '<integer>'; inherits: false; initial-value: 0; }
+        @property --rgb-6-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
+        @property --rgb-6-b { syntax: '<integer>'; inherits: false; initial-value: 255; }
+
+        @property --rgb-7-r { syntax: '<integer>'; inherits: false; initial-value: 128; }
+        @property --rgb-7-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
+        @property --rgb-7-b { syntax: '<integer>'; inherits: false; initial-value: 128; }
+
+        @property --rgb-8-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
+        @property --rgb-8-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
+        @property --rgb-8-b { syntax: '<integer>'; inherits: false; initial-value: 255; }
+
+
+        /* 設定 Inter 字體，提供圓潤的視覺效果 */
         body {
-            font-family: sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-section-alt) 50%, var(--bg-primary) 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 20s ease infinite alternate; /* Slower gradient animation */
+            overflow-x: hidden;
+            padding-top: 5rem;
             min-height: 100vh;
-            margin: 0;
-        }
-
-        .countdown-title {
-            background-color: #6c757d;
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            font-size: 1.5em;
-        }
-
-        .circles-container {
             display: flex;
-            gap: 30px;
+            flex-direction: column;
+            color: var(--text-primary); /* Default text color, bright in dark mode */
+            transition: background-color 0.8s ease, color 0.8s ease; /* Smooth theme transition */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer-2"><path d="m4 4 7.07 17.68 2.54-6.36 6.36-2.54L4 4z"/><path d="m13.5 13.5 1.5 1.5"/></svg>') 12 12, auto; /* Custom mouse cursor */
+            user-select: text; /* 允許文字選取 */
         }
 
-        .circle-item {
+        /* 漸變背景動畫 */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* 自定義動畫：淡入效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 自定義動畫：向上彈跳效果 */
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.1); }
+            80% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* 文本陰影動畫 (RGB Breathing) */
+        @keyframes textRGBGlow {
+            0% { text-shadow: 0 0 8px rgba(var(--rgb-1-r), var(--rgb-1-g), var(--rgb-1-b), 0.7); }
+            12.5% { text-shadow: 0 0 8px rgba(var(--rgb-2-r), var(--rgb-2-g), var(--rgb-2-b), 0.7); }
+            25% { text-shadow: 0 0 8px rgba(var(--rgb-3-r), var(--rgb-3-g), var(--rgb-3-b), 0.7); }
+            37.5% { text-shadow: 0 0 8px rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.7); }
+            50% { text-shadow: 0 0 8px rgba(var(--rgb-5-r), var(--rgb-5-g), var(--rgb-5-b), 0.7); }
+            62.5% { text-shadow: 0 0 8px rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.7); }
+            75% { text-shadow: 0 0 8px rgba(var(--rgb-7-r), var(--rgb-7-g), var(--rgb-7-b), 0.7); }
+            87.5% { text-shadow: 0 0 8px rgba(var(--rgb-8-r), var(--rgb-8-g), var(--rgb-8-b), 0.7); }
+            100% { text-shadow: 0 0 8px rgba(var(--rgb-1-r), var(--rgb-1-g), var(--rgb-1-b), 0.7); }
+        }
+
+        /* 導航連結的脈動效果 (RGB Breathing) */
+        @keyframes navLinkRGBBreathing {
+            0% { box-shadow: 0 0 15px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), inset 0 0 8px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.6); }
+            12.5% { box-shadow: 0 0 15px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.8), inset 0 0 8px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.6); }
+            25% { box-shadow: 0 0 15px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.8), inset 0 0 8px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.6); }
+            37.5% { box-shadow: 0 0 15px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.8), inset 0 0 8px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.6); }
+            50% { box-shadow: 0 0 15px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.8), inset 0 0 8px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.6); }
+            62.5% { box-shadow: 0 0 15px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.8), inset 0 0 8px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.6); }
+            75% { box-shadow: 0 0 15px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.8), inset 0 0 8px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.6); }
+            87.5% { box-shadow: 0 0 15px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.8), inset 0 0 8px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.6); }
+            100% { box-shadow: 0 0 15px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), inset 0 0 8px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.6); }
+        }
+
+        /* 標題下方的彩虹移動線 */
+        @keyframes rainbowUnderlineMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* 區塊和社群按鈕的霓虹邊框光暈 */
+        @keyframes neonBorderGlow {
+            0% { box-shadow: 0 0 10px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.7), 0 0 20px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.5); }
+            12.5% { box-shadow: 0 0 10px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.7), 0 0 20px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.5); }
+            25% { box-shadow: 0 0 10px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.7), 0 0 20px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.5); }
+            37.5% { box-shadow: 0 0 10px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.7), 0 0 20px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.5); }
+            50% { box-shadow: 0 0 10px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.7), 0 0 20px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.5); }
+            62.5% { box-shadow: 0 0 10px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.7), 0 0 20px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.5); }
+            75% { box-shadow: 0 0 10px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.7), 0 0 20px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.5); }
+            87.5% { box-shadow: 0 0 10px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.7), 0 0 20px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.5); }
+            100% { box-shadow: 0 0 10px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.7), 0 0 20px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.5); }
+        }
+
+        .animate-fadeIn { animation: fadeIn 1s ease-out forwards; }
+        .animate-bounceIn { animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; } /* 更強烈的彈跳 */
+        .animate-textRGBGlow { animation: textRGBGlow 6s ease-in-out infinite alternate; } /* 較慢的 RGB 光暈 */
+
+        /* 影片卡片 hover 效果 */
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.05); /* 更明顯的浮動和縮放 */
+            box-shadow: 0 20px 40px var(--shadow-color); /* 更深的陰影 */
+            border-color: rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.7); /* 綠色邊框光暈 */
+        }
+        .video-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-color: var(--bg-section-alt); /* 卡片背景 */
+            color: var(--text-primary); /* 卡片文字顏色 */
+            border: 1px solid rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.3); /* 藍色邊框 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .video-card h3 { color: var(--text-primary); }
+        .video-card p { color: var(--text-secondary); }
+
+        /* 確保圖片在加載失敗時有回退 */
+        img {
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* 區塊間距和背景色 */
+        .page-section {
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background-color: var(--bg-section); /* 區塊背景 */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px -3px var(--shadow-color), 0 4px 8px -2px rgba(0, 0, 0, 0.2);
+            max-width: 4xl;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.6s ease, box-shadow 0.6s ease;
+            position: relative; /* 用於霓虹邊框 */
+        }
+        .page-section.active {
+            opacity: 1;
+            transform: translateY(0);
+            animation: neonBorderGlow 8s infinite alternate; /* 活躍區塊的霓虹邊框 */
+        }
+
+        /* 導航連結的酷炫效果 (RGB Breathing) */
+        .nav-link {
+            position: relative;
+            padding: 0.75rem 1.25rem; /* 更大的點擊區域 */
+            border-radius: 1rem; /* 更圓潤 */
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-primary); /* 預設文字顏色 */
+            font-weight: 700; /* 更粗的字體 */
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            background-color: var(--bg-section-alt); /* 導航連結背景 */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            border: 1px solid transparent; /* 用於 RGB 邊框 */
+        }
+
+        .nav-link::before { /* RGB 邊框 */
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: conic-gradient(from 0deg at 50% 50%, 
+                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), 
+                        rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.8), 
+                        rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.8), 
+                        rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.8), 
+                        rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.8), 
+                        rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.8), 
+                        rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.8), 
+                        rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.8),
+                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8));
+            border-radius: 1rem; /* 匹配按鈕圓角 */
+            filter: blur(3px); /* 輕微模糊 */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+            animation: rotateGlow 2s linear infinite; /* 持續旋轉 */
+        }
+        .nav-link:hover::before {
+            opacity: 1;
+        }
+        .nav-link:hover {
+            color: var(--accent-color); /* hover 時的文字顏色 */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-link.active-nav {
+            background-color: var(--accent-color); /* 活躍背景顏色 */
+            color: var(--bg-primary); /* 活躍文字顏色 (亮色模式下會是淺色，暗色模式下會是深色) */
+            box-shadow: 0 0 20px rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.9), inset 0 0 10px rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.7); /* 更強的綠色光暈 */
+            animation: navLinkRGBBreathing 4s infinite alternate; /* RGB 呼吸燈 */
+            transform: scale(1.05); /* 活躍時稍微放大 */
+        }
+        /* 修正活躍導航連結在亮色模式下的文字顏色 */
+        body:not(.dark-mode) .nav-link.active-nav {
+            color: #ffffff; /* 亮色模式下活躍連結文字為白色 */
+        }
+        body.dark-mode .nav-link.active-nav {
+            color: #0a0a0a; /* 暗色模式下活躍連結文字為深色，與亮色背景形成對比 */
+        }
+
+        .nav-link.active-nav::before {
+            opacity: 0; /* 活躍狀態覆蓋 hover 光暈 */
+            animation: none;
+        }
+
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 標題的酷炫樣式 */
+        .cool-heading {
+            text-shadow: 0 0 10px rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.6); /* 預設藍色光暈 */
+            position: relative;
+            display: inline-block;
+            color: var(--text-primary); /* 標題文字明亮 */
+            animation: textRGBGlow 6s ease-in-out infinite alternate; /* RGB 呼吸燈光暈 */
+        }
+        .cool-heading::after { /* 彩虹線下劃線 */
+            content: '';
+            display: block;
+            width: 100%; /* 全寬 */
+            height: 4px;
+            background: linear-gradient(90deg, 
+                        rgb(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b)), 
+                        rgb(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b)), 
+                        rgb(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b)), 
+                        rgb(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b)), 
+                        rgb(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b)), 
+                        rgb(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b)), 
+                        rgb(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b)), 
+                        rgb(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b)));
+            background-size: 200% 100%; /* 用於移動漸變 */
+            border-radius: 2px;
+            margin: 0.5rem auto 0;
+            transform: scaleX(0);
+            animation: underlineExpand 0.8s ease-out forwards, rainbowUnderlineMove 4s linear infinite; /* 展開然後移動 */
+            animation-delay: 0.2s;
+        }
+
+        @keyframes underlineExpand {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        /* 技能/興趣列表項的動畫 */
+        .list-item-animate {
+            transform: translateX(-30px); /* 更大的位移 */
+            opacity: 0;
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Header 背景 */
+        header {
+            background-color: var(--header-bg);
+            transition: background-color 0.5s ease;
+            border-bottom: 2px solid rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.3); /* 底部藍線 */
+        }
+
+        /* Footer 文字顏色 */
+        footer {
+            color: var(--text-secondary);
+            transition: color 0.5s ease;
+        }
+
+        /* 社群媒體按鈕樣式 */
+        .social-button {
+            position: relative;
+            background-color: var(--bg-section-alt); /* 按鈕背景 */
+            color: var(--text-primary);
+            border-radius: 1.5rem; /* 更圓潤 */
+            padding: 1rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent; /* 用於 RGB 邊框光暈 */
+        }
+
+        .social-button:hover {
+            transform: translateY(-8px) scale(1.05); /* 更明顯的浮動和縮放 */
+            box-shadow: 0 12px 25px var(--shadow-color);
+            color: var(--accent-color); /* hover 時的文字顏色 */
+            animation: neonBorderGlow 2s infinite alternate; /* 社群按鈕的霓虹邊框 */
+        }
+
+        /* 社群按鈕的 RGB 邊框光暈 (霓虹 GDI) */
+        .social-button::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background: conic-gradient(from 0deg at 50% 50%, 
+                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), 
+                        rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.8), 
+                        rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.8), 
+                        rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.8), 
+                        rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.8), 
+                        rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.8), 
+                        rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.8), 
+                        rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.8),
+                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8));
+            border-radius: 1.5rem; /* 匹配按鈕圓角 */
+            filter: blur(8px); /* 更強的模糊，營造霓虹效果 */
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .social-button:hover::before {
+            opacity: 1;
+            animation: rotateGlow 2s linear infinite; /* 重複使用 rotateGlow */
+        }
+
+        .social-button svg {
+            margin-right: 0.75rem;
+            width: 2.25rem; /* w-9 */
+            height: 2.25rem; /* h-9 */
+            transition: transform 0.3s ease;
+        }
+        .social-button:hover svg {
+            transform: rotate(15deg) scale(1.15); /* hover 時圖標動畫更明顯 */
+        }
+
+        /* 社群圖標的特定品牌顏色 */
+        .social-button.youtube-btn { background-color: var(--youtube-red); color: white; }
+        .social-button.youtube-btn:hover { background-color: var(--youtube-red-hover); }
+        .social-button.youtube-btn svg { fill: currentColor; } /* 使用 currentColor 讓 SVG 繼承文字顏色 */
+
+        .social-button.instagram-btn { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #9b22e1, #6246f6, #3b5bfd);
+            color: white;
+        }
+        .social-button.instagram-btn:hover { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #9b22e1, #6246f6, #3b5bfd); /* hover 時保持漸變 */
+            filter: brightness(1.1); /* hover 時稍微提亮 */
+        }
+        .social-button.instagram-btn svg { fill: currentColor; } /* 使用 currentColor 讓 SVG 繼承文字顏色 */
+
+        .social-button.threads-btn {
+            background-color: #000000; /* Threads logo is black */
+            color: white;
+        }
+        body.dark-mode .social-button.threads-btn {
+            background-color: #ffffff; /* White in dark mode */
+            color: #000000;
+        }
+        .social-button.threads-btn:hover {
+            filter: brightness(0.8); /* Darken on hover */
+        }
+        body.dark-mode .social-button.threads-btn:hover {
+            filter: brightness(0.9); /* Slightly darken on hover in dark mode */
+        }
+        .social-button.threads-btn svg { fill: currentColor; }
+
+
+        /* 視差容器 */
+        #parallax-container {
+            transition: transform 0.1s ease-out; /* 平滑的視差移動 */
+            transform-style: preserve-3d; /* 啟用 3D 變換 */
+            perspective: 1000px; /* 3D 效果的透視 */
+            width: 100%; /* 確保佔滿全寬 */
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* 視差變換將由 JS 直接應用到這裡 */
+        }
+        /* 區塊的輕微旋轉，用於視差 */
+        .page-section {
+            transform-origin: center center;
+            /* 視差的初始變換將由 JS 設定 */
         }
 
-        .circle-progress {
-            position: relative;
-            width: 120px;
-            height: 120px;
+        /* 主題切換按鈕特定顏色 */
+        #theme-toggle #sun-icon { color: #facc15; } /* Tailwind yellow-400 */
+        #theme-toggle #moon-icon { color: #4f46e5; } /* Tailwind indigo-700 */
+
+        body.dark-mode #theme-toggle #sun-icon { color: #fde047; } /* 暗色模式下更亮的黃色 */
+        body.dark-mode #theme-toggle #moon-icon { color: #a5b4fc; } /* 暗色模式下更淺的靛藍色 */
+
+        /* 主題切換圖標動畫 */
+        .theme-icon-enter {
+            animation: iconEnter 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+        .theme-icon-exit {
+            animation: iconExit 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
         }
 
-        .progress-ring {
-            width: 100%;
-            height: 100%;
+        @keyframes iconEnter {
+            from { opacity: 0; transform: scale(0.5) rotate(-90deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
         }
-
-        .progress-ring__circle {
-            transition: stroke-dashoffset 0.35s;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-            stroke-width: 10;
-            fill: transparent;
-            r: 48;
-            cx: 60;
-            cy: 60;
-            stroke: #ccc;
-            stroke-linecap: round; /* 圓潤的線帽 */
-        }
-
-        .progress-ring__fill {
-            transition: stroke-dashoffset 0.35s;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-            stroke-width: 10;
-            fill: transparent;
-            r: 48;
-            cx: 60;
-            cy: 60;
-            stroke-dasharray: 301.6; /* 圓的周長近似值 */
-            stroke-dashoffset: 301.6;
-            stroke-linecap: round; /* 圓潤的線帽 */
-        }
-
-        .progress-value {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.8em;
-        }
-
-        .circle-label {
-            margin-top: 10px;
-            font-size: 1.1em;
-            color: #555;
+        @keyframes iconExit {
+            from { opacity: 1; transform: scale(1) rotate(0deg); }
+            to { opacity: 0; transform: scale(0.5) rotate(90deg); }
         }
     </style>
 </head>
-<body>
-    <div id="countdown-title" class="countdown-title">準備迎接2025年的月考啦!! 加油!!</div>
-    <div class="circles-container">
-        <div class="circle-item">
-            <div class="circle-progress">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring__circle"></circle>
-                    <circle id="days-circle" class="progress-ring__fill" stroke="#ff6b6b"></circle>
-                </svg>
-                <div id="days-value" class="progress-value"></div>
-            </div>
-            <div class="circle-label">天</div>
-        </div>
-        <div class="circle-item">
-            <div class="circle-progress">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring__circle"></circle>
-                    <circle id="hours-circle" class="progress-ring__fill" stroke="#ffda6b"></circle>
-                </svg>
-                <div id="hours-value" class="progress-value"></div>
-            </div>
-            <div class="circle-label">時</div>
-        </div>
-        <div class="circle-item">
-            <div class="circle-progress">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring__circle"></circle>
-                    <circle id="minutes-circle" class="progress-ring__fill" stroke="#20c997"></circle>
-                </svg>
-                <div id="minutes-value" class="progress-value"></div>
-            </div>
-            <div class="circle-label">分</div>
-        </div>
-        <div class="circle-item">
-            <div class="circle-progress">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring__circle"></circle>
-                    <circle id="seconds-circle" class="progress-ring__fill" stroke="#339af0"></circle>
-                </svg>
-                <div id="seconds-value" class="progress-value"></div>
-            </div>
-            <div class="circle-label">秒</div>
+<body class="text-gray-800">
+
+    <!-- 固定導航列 -->
+    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 backdrop-blur-sm z-50 shadow-md rounded-b-2xl px-4 py-3">
+        <nav class="max-w-4xl mx-auto flex justify-center space-x-4 sm:space-x-8">
+            <a href="#home-page" class="nav-link" data-page="home-page"><span>首頁</span></a>
+            <a href="#about-page" class="nav-link" data-page="about-page"><span>關於我</span></a>
+            <a href="#skills-page" class="nav-link" data-page="skills-page"><span>我的興趣與技能</span></a>
+            <a href="#videos-page" class="nav-link" data-page="videos-page"><span>最新影片</span></a>
+            <a href="#contact-page" class="nav-link" data-page="contact-page"><span>聯絡我們</span></a>
+        </nav>
+        <!-- 主題切換按鈕 -->
+        <button id="theme-toggle" class="absolute top-4 right-4 p-2 rounded-full transform transition-transform duration-300">
+            <!-- 太陽圖標 (來自 Lucide Icons - 為更好的外觀而自定義) -->
+            <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <!-- 月亮圖標 (來自 Lucide Icons - 為更好的外觀而自定義) -->
+            <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+        </button>
+    </header>
+
+    <div id="app-container" class="flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8 flex-grow">
+        <!-- 視差容器 -->
+        <div id="parallax-container" class="w-full max-w-4xl flex flex-col items-center">
+            <!-- 首頁區塊 -->
+            <section id="home-page" class="page-section active text-center animate-fadeIn">
+                <!-- 橫幅區塊 -->
+                <div class="relative w-full rounded-3xl shadow-xl overflow-hidden mb-8">
+                    <img src="https://yt3.googleusercontent.com/DJxyHuvIJfZPyrWtzkSE97ifPNqMob1D7qq5sRNz_wUePcG_CljuwqY6GaexeUhv2T03OvqxjA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" 
+                         alt="橫幅圖片" 
+                         class="w-full h-48 object-cover object-center rounded-t-3xl"
+                         onerror="this.onerror=null;this.src='https://placehold.co/1707x480/cccccc/333333?text=Banner+Image+Not+Found';">
+                </div>
+
+                <!-- 頭像與個人資訊簡介 -->
+                <div class="relative -mt-24 sm:-mt-28 md:-mt-32 lg:-mt-36 z-10 animate-bounceIn">
+                    <img src="https://yt3.googleusercontent.com/TQ0gSJnVWwWm1w775-fnh2JapfVM0yfVXSlfSQ0lqoynpE9q1PtSyf9i3BuI7ufqukBkA4eYmRs=s160-c-k-c0x00ffffff-no-rj" 
+                         alt="阿維喵 Avi 的頭像" 
+                         class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full border-4 border-white shadow-lg mx-auto object-cover">
+                </div>
+                
+                <div class="mt-8">
+                    <h1 class="text-4xl font-extrabold mb-2 animate-textRGBGlow cool-heading">阿維喵 Avi</h1>
+                    <p class="text-xl mb-4 animate-fadeIn" style="animation-delay: 0.6s;">Roblox動畫師、玩遊戲的人</p>
+                    <p class="text-md max-w-2xl mx-auto animate-fadeIn" style="animation-delay: 0.7s;">
+                        歡迎來到阿維喵 Avi 的個人檔案！這裡記錄著我作為 Roblox 動畫師的創作旅程，以及我對各種遊戲的熱愛。
+                        希望我的影片能帶給你歡樂和啟發！
+                    </p>
+                </div>
+            </section>
+
+            <!-- 關於我區塊 -->
+            <section id="about-page" class="page-section hidden text-center animate-fadeIn">
+                <h2 class="text-3xl font-bold mb-6 cool-heading">關於我</h2>
+                <div class="text-lg leading-relaxed space-y-4">
+                    <p class="animate-fadeIn" style="animation-delay: 0.2s;">
+                        哈囉！我是阿維喵 Avi，一個熱衷於在 Roblox 平台創作動畫的夢想家。從簡單的角色動作到複雜的場景敘事，我享受將腦海中的奇思妙想轉化為生動的視覺故事。對我來說，Roblox 不僅僅是一個遊戲平台，更是一個充滿無限可能的創作天地。
+                    </p>
+                    <p class="animate-fadeIn" style="animation-delay: 0.3s;">
+                        除了動畫製作，我也是一個不折不扣的遊戲愛好者。從策略遊戲到開放世界冒險，我都樂於探索和挑戰。我喜歡分享我的遊戲體驗，無論是精彩的瞬間、有趣的發現，還是對遊戲的獨到見解。
+                    </p>
+                    <p class="animate-fadeIn" style="animation-delay: 0.4s;">
+                        我的頻道和這個個人檔案頁面，就是我分享熱情和成果的地方。希望能透過我的作品和內容，與更多同好交流，一起探索創意和遊戲的樂趣！
+                    </p>
+                </div>
+            </section>
+
+            <!-- 我的興趣與技能區塊 -->
+            <section id="skills-page" class="page-section hidden animate-fadeIn">
+                <h2 class="text-3xl font-bold text-center mb-6 cool-heading">我的興趣與技能</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
+                    <div class="animate-fadeIn" style="animation-delay: 0.2s;">
+                        <h3 class="text-2xl font-semibold mb-3">主要興趣</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="list-item-animate" style="animation-delay: 0.3s;">Roblox 動畫製作與設計</li>
+                            <li class="list-item-animate" style="animation-delay: 0.4s;">探索各種電子遊戲（PC、主機、手遊）</li>
+                            <li class="list-item-animate" style="animation-delay: 0.5s;">影片剪輯與後製</li>
+                            <li class="list-item-animate" style="animation-delay: 0.6s;">學習新的創作工具與技術</li>
+                            <li class="list-item-animate" style="animation-delay: 0.7s;">與社群互動和分享經驗</li>
+                        </ul>
+                    </div>
+                    <div class="animate-fadeIn" style="animation-delay: 0.8s;">
+                        <h3 class="text-2xl font-semibold mb-3">技能專長</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="list-item-animate" style="animation-delay: 0.9s;">Roblox Studio 動畫編排</li>
+                            <li class="list-item-animate" style="animation-delay: 1.0s;">角色動作設計與表情捕捉</li>
+                            <li class="list-item-animate" style="animation-delay: 1.1s;">基礎場景建構與燈光設定</li>
+                            <li class="list-item-animate" style="animation-delay: 1.2s;">影片內容策劃與腳本撰寫</li>
+                            <li class="list-item-animate" style="animation-delay: 1.3s;">遊戲實況與解說</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 最新影片專區 -->
+            <section id="videos-page" class="page-section hidden section-alt-bg animate-fadeIn">
+                <h2 class="text-3xl font-bold text-center mb-6 cool-heading">最新影片</h2>
+                <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 影片將會動態加載到這裡 -->
+                    <p class="col-span-full text-center text-secondary" id="loading-message">正在加載影片，請稍候...</p>
+                </div>
+                <p class="text-center text-red-500 mt-4 hidden" id="error-message">
+                    無法加載影片。請檢查您的 YouTube API Key 是否正確，或稍後再試。
+                </p>
+            </section>
+
+            <!-- 聯絡我們區塊 -->
+            <section id="contact-page" class="page-section hidden text-center animate-fadeIn">
+                <h2 class="text-3xl font-bold mb-6 cool-heading">聯絡我們</h2>
+                <p class="text-lg text-secondary mb-8 animate-fadeIn" style="animation-delay: 0.2s;">
+                    想找到阿維喵 Avi？透過以下平台可以聯絡到我，期待與你交流！
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <!-- YouTube -->
+                    <a href="https://www.youtube.com/channel/UC9xI1GjFS_4Bar72B5CGKxw" target="_blank" rel="noopener noreferrer"
+                       class="social-button youtube-btn animate-bounceIn" style="animation-delay: 0.3s;">
+                        <!-- 通用連結圖標 (Lucide Icons) - 簡潔路徑 -->
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                        </svg>
+                        <span>YouTube</span>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/aviooo2023" target="_blank" rel="noopener noreferrer"
+                       class="social-button instagram-btn animate-bounceIn" style="animation-delay: 0.4s;">
+                        <!-- 通用連結圖標 (Lucide Icons) - 簡潔路徑 -->
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                    <!-- Threads -->
+                    <a href="https://threads.com/@aviooo2023" target="_blank" rel="noopener noreferrer"
+                       class="social-button threads-btn animate-bounceIn" style="animation-delay: 0.5s;">
+                        <!-- 通用連結圖標 (Lucide Icons) - 簡潔路徑 -->
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                        </svg>
+                        <span>Threads</span>
+                    </a>
+                </div>
+            </section>
         </div>
     </div>
 
+    <!-- 頁腳 -->
+    <footer class="mt-auto py-8 text-sm text-center w-full">
+        <p>&copy; <span id="current-year"></span> 阿維喵 Avi 版權所有</p>
+        <p>由 椰子水培根 製作</p>
+    </footer>
+
     <script>
-        const titleElement = document.getElementById('countdown-title');
-        const daysValueElement = document.getElementById('days-value');
-        const hoursValueElement = document.getElementById('hours-value');
-        const minutesValueElement = document.getElementById('minutes-value');
-        const secondsValueElement = document.getElementById('seconds-value');
+        // 在這裡填入您的 YouTube Data API Key
+        // 如何取得 API Key: https://developers.google.com/youtube/v3/getting_started
+        // 注意：在實際部署時，為安全考量，API Key 不應直接暴露在前端程式碼中。
+        const YOUTUBE_API_KEY = 'AIzaSyARZ8ZtqPF2kRCNEMsHFtxZHXWFkg4YJjg'; // <-- 已替換為您提供的 API Key
+        const CHANNEL_ID = 'UC9xI1GjFS_4Bar72B5CGKxw'; // 阿維喵 Avi 的 YouTube 頻道 ID
 
-        const dayCircle = document.getElementById('days-circle');
-        const hourCircle = document.getElementById('hours-circle');
-        const minuteCircle = document.getElementById('minutes-circle');
-        const secondCircle = document.getElementById('seconds-circle');
+        document.addEventListener('DOMContentLoaded', () => {
+            // 動態設定版權年份
+            document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        const radius = 48;
-        const circumference = 2 * Math.PI * radius;
+            // 主題切換邏輯
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
 
-        function setCircleProgress(circle, value, max) {
-            const offset = circumference - (value / max) * circumference;
-            circle.style.strokeDashoffset = offset;
-            const dashArray = circumference;
-            circle.style.strokeDasharray = dashArray;
-        }
-
-        function updateCountdown() {
-            const now = new Date();
-
-            // 會考時間點 (使用本地時間)
-            const examStartDay1 = new Date('2025-05-17T08:20:00');
-            const examEndDay1 = new Date('2025-05-17T16:40:00');
-            const examStartDay2 = new Date('2025-05-18T08:20:00');
-            const examEndDay2 = new Date('2025-05-18T12:30:00');
-            const examEndFinal = examEndDay2;
-
-            let timeDiff;
-            let titleText = '準備迎接2025年的會考囉! 加油! 祝你考到好高中!';
-
-            if (now >= examStartDay1 && now < examEndDay1) {
-                titleText = '正在進行考試 (第一天)';
-                timeDiff = examEndDay1.getTime() - now.getTime();
-            } else if (now >= examEndDay1 && now < examStartDay2) {
-                titleText = '恭喜你撐過第一天了! 準備第二天的努力吧!';
-                timeDiff = examStartDay2.getTime() - now.getTime();
-            } else if (now >= examStartDay2 && now < examEndDay2) {
-                titleText = '正在進行考試 (第二天)';
-                timeDiff = examEndDay2.getTime() - now.getTime();
-            } else if (now >= examEndFinal) {
-                titleText = '114年會考已結束 此網站已暫停使用';
-                timeDiff = 0;
-                daysValueElement.innerText = '0';
-                hoursValueElement.innerText = '0';
-                minutesValueElement.innerText = '0';
-                secondsValueElement.innerText = '0';
-                setCircleProgress(dayCircle, 0, 1);
-                setCircleProgress(hourCircle, 0, 1);
-                setCircleProgress(minuteCircle, 0, 1);
-                setCircleProgress(secondCircle, 0, 1);
-                clearInterval(intervalId);
-                titleElement.innerText = titleText;
-                return;
+            // 檢查 localStorage 以載入上次的主題偏好
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
             } else {
-                timeDiff = examStartDay1.getTime() - now.getTime();
+                document.body.classList.remove('dark-mode'); // 確保移除 dark-mode 以防萬一
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
             }
 
-            titleElement.innerText = titleText;
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                
+                // Animate icons out
+                if (isDarkMode) {
+                    sunIcon.classList.add('theme-icon-exit');
+                } else {
+                    moonIcon.classList.add('theme-icon-exit');
+                }
 
-            const totalSeconds = Math.floor(timeDiff / 1000);
-            const days = Math.floor(totalSeconds / (60 * 60 * 24));
-            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
-            const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-            const seconds = totalSeconds % 60;
+                // Toggle theme after a short delay to allow exit animation
+                setTimeout(() => {
+                    document.body.classList.toggle('dark-mode');
+                    if (document.body.classList.contains('dark-mode')) {
+                        localStorage.setItem('theme', 'dark');
+                        moonIcon.classList.add('hidden');
+                        sunIcon.classList.remove('hidden');
+                        sunIcon.classList.remove('theme-icon-exit');
+                        sunIcon.classList.add('theme-icon-enter');
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                        moonIcon.classList.remove('theme-icon-exit'); // Remove exit animation if it was applied
+                        moonIcon.classList.remove('hidden');
+                        sunIcon.classList.add('hidden');
+                        moonIcon.classList.add('theme-icon-enter');
+                    }
+                }, 200); // Adjust delay to match exit animation duration
+            });
 
-            daysValueElement.innerText = Math.max(0, days);
-            hoursValueElement.innerText = Math.max(0, hours);
-            minutesValueElement.innerText = Math.max(0, minutes);
-            secondsValueElement.innerText = Math.max(0, seconds);
+            // 處理頁面切換
+            const pageSections = document.querySelectorAll('.page-section');
+            const navLinks = document.querySelectorAll('.nav-link');
 
-            setCircleProgress(dayCircle, Math.max(0, days), 365);
-            setCircleProgress(hourCircle, Math.max(0, hours), 24);
-            setCircleProgress(minuteCircle, Math.max(0, minutes), 60);
-            setCircleProgress(secondCircle, Math.max(0, seconds), 60);
-        }
+            function showPage(pageId) {
+                // 隱藏所有頁面並移除 active 類
+                pageSections.forEach(section => {
+                    section.classList.remove('active');
+                    section.classList.add('hidden'); // 確保隱藏
+                });
 
-        updateCountdown();
-        const intervalId = setInterval(updateCountdown, 1000);
+                // 移除所有導航連結的 active 樣式
+                navLinks.forEach(link => link.classList.remove('active-nav'));
+
+                // 顯示目標頁面並添加 active 類
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.remove('hidden'); // 先移除 hidden
+                    // 強制重繪以確保動畫重新觸發
+                    void targetPage.offsetWidth; 
+                    targetPage.classList.add('active'); // 添加 active 觸發動畫
+                    window.scrollTo(0, 0); // 滾動到頁面頂部
+                }
+
+                // 為當前活躍的導航連結添加 active 樣式
+                const activeNavLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+                if (activeNavLink) {
+                    activeNavLink.classList.add('active-nav');
+                }
+            }
+
+            // 為導航連結添加點擊事件監聽器
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = e.target.closest('a').dataset.page; // 使用 dataset 獲取頁面 ID
+                    showPage(pageId);
+                    // 如果是影片頁面，才觸發影片加載
+                    if (pageId === 'videos-page' && !videosLoaded) {
+                        fetchLatestYouTubeVideos();
+                    }
+                });
+            });
+
+            // 初始載入首頁
+            showPage('home-page');
+
+            // 影片只加載一次，避免重複 API 請求
+            let videosLoaded = false;
+
+            async function fetchLatestYouTubeVideos() {
+                videosLoaded = true; // 設定為已加載
+                const videosContainer = document.getElementById('videos-container');
+                const loadingMessage = document.getElementById('loading-message');
+                const errorMessage = document.getElementById('error-message');
+
+                loadingMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                videosContainer.innerHTML = ''; // 清空舊內容
+
+                if (YOUTUBE_API_KEY === 'YOUR_YOUTUBE_API_KEY' || !YOUTUBE_API_KEY) {
+                    loadingMessage.classList.add('hidden');
+                    errorMessage.textContent = '請在程式碼中填寫您的 YouTube API Key 以加載影片。';
+                    errorMessage.classList.remove('hidden');
+                    return;
+                }
+
+                try {
+                    // 1. 獲取頻道的上傳播放列表 ID
+                    const channelResponse = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${YOUTUBE_API_KEY}`);
+                    if (!channelResponse.ok) {
+                        throw new Error(`HTTP error! status: ${channelResponse.status}`);
+                    }
+                    const channelData = await channelResponse.json();
+                    
+                    // 檢查 channelData.items 是否存在且非空
+                    if (!channelData.items || channelData.items.length === 0) {
+                        throw new Error('找不到頻道資訊，請檢查頻道 ID 是否正確。');
+                    }
+
+                    const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+
+                    // 2. 獲取播放列表中的最新影片
+                    // maxResults=6 表示獲取最多6個影片
+                    const videosResponse = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${uploadsPlaylistId}&maxResults=6&key=${YOUTUBE_API_KEY}`);
+                    if (!videosResponse.ok) {
+                        throw new Error(`HTTP error! status: ${videosResponse.status}`);
+                    }
+                    const videosData = await videosResponse.json();
+
+                    loadingMessage.classList.add('hidden'); // 隱藏加載訊息
+
+                    if (!videosData.items || videosData.items.length === 0) {
+                        videosContainer.innerHTML = '<p class="col-span-full text-center text-secondary">此頻道目前沒有影片。</p>';
+                        return;
+                    }
+
+                    videosData.items.forEach((item, index) => {
+                        const videoId = item.contentDetails.videoId;
+                        const title = item.snippet.title;
+                        const publishedAt = new Date(item.snippet.publishedAt);
+                        // 格式化發布日期和時間
+                        const formattedDate = publishedAt.toLocaleDateString('zh-TW', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        const formattedTime = publishedAt.toLocaleTimeString('zh-TW', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false // 24小時制
+                        });
+                        const dateTimeString = `${formattedDate} ${formattedTime}`;
+
+                        // 檢查縮圖是否存在，否則使用佔位圖
+                        const thumbnailUrl = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : 'https://placehold.co/480x360/cccccc/333333?text=No+Thumbnail';
+                        const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+                        const videoCard = `
+                            <div class="video-card p-4 rounded-2xl shadow-md flex flex-col items-center text-center animate-fadeIn" style="animation-delay: ${0.8 + index * 0.1}s;">
+                                <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="block w-full">
+                                    <img src="${thumbnailUrl}" 
+                                         alt="${title}" 
+                                         class="w-full h-40 object-cover rounded-xl mb-4 shadow-sm"
+                                         onerror="this.onerror=null;this.src='https://placehold.co/480x360/cccccc/333333?text=Video+Thumbnail+Not+Found';">
+                                    <h3 class="text-lg font-semibold line-clamp-2">${title}</h3>
+                                    <p class="text-sm mt-1">${dateTimeString} 發布</p>
+                                </a>
+                            </div>
+                        `;
+                        videosContainer.innerHTML += videoCard;
+                    });
+
+                } catch (error) {
+                    console.error('Error fetching YouTube videos:', error);
+                    errorMessage.textContent = `加載影片時發生錯誤：${error.message}。請檢查您的 API Key 或網路連線。`;
+                    errorMessage.classList.remove('hidden');
+                } finally {
+                    loadingMessage.classList.add('hidden'); // 無論成功失敗都隱藏加載訊息
+                }
+            }
+
+            // Parallax Effect (視差特效)
+            const parallaxContainer = document.getElementById('parallax-container');
+            const parallaxStrength = 15; // 調整視差效果的強度 (像素)
+
+            document.body.addEventListener('mousemove', (e) => {
+                const rect = parallaxContainer.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                // 計算相對於中心點的位移
+                const moveX = (mouseX - centerX) / window.innerWidth * parallaxStrength;
+                const moveY = (mouseY - centerY) / window.innerHeight * parallaxStrength;
+
+                // 應用 transform 屬性
+                parallaxContainer.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+            });
+
+            // Reset parallax on mouse leave
+            document.body.addEventListener('mouseleave', () => {
+                parallaxContainer.style.transform = `translate3d(0, 0, 0)`;
+            });
+        });
     </script>
 </body>
 </html>
