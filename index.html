@@ -3,863 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阿維喵 Avi - 電競個人檔案</title>
-    <!-- 引入 Tailwind CSS CDN -->
+    <title>給惠卿姑姑的超酷賀卡 - 祉龍</title>
+    <!-- 載入 Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 設定 Hanyi Senty Wen Kai 手寫字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Hanyi+Senty+Wen+Kai&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for Theme */
-        :root {
-            /* Light Mode Colors */
-            --bg-primary: #e0f7fa; /* Light cyan background */
-            --bg-section: #ffffff; /* Main section background */
-            --bg-section-alt: #f0faff; /* Alternate section background */
-            --text-primary: #2d3748; /* Dark text */
-            --text-secondary: #4a5568; /* Medium gray text */
-            --accent-color: #6366f1; /* Strong Indigo */
-            --accent-light: #818cf8; /* Lighter Indigo */
-            --shadow-color: rgba(0, 0, 0, 0.15);
-            --header-bg: rgba(255, 255, 255, 0.95);
-            --video-card-hover-bg: #e0e7ff; /* Light purple-blue hover */
-            --youtube-red: #ff0000;
-            --youtube-red-hover: #cc0000;
-        }
-
-        body.dark-mode {
-            /* Dark Mode Colors - Optimized for Bright Text */
-            --bg-primary: #0a0a0a; /* Deep dark background */
-            --bg-section: #1a1a1a; /* Darker section background */
-            --bg-section-alt: #2a2a2a; /* Even darker for contrast */
-            --text-primary: #f0f0f0; /* Very bright text */
-            --text-secondary: #c0c0c0; /* Lighter gray text */
-            --accent-color: #00e676; /* Vibrant Green for accents */
-            --accent-light: #00b0ff; /* Vibrant Blue for accents */
-            --shadow-color: rgba(0, 0, 0, 0.6); /* Deeper shadows */
-            --header-bg: rgba(10, 10, 10, 0.95); /* Dark header background */
-            --video-card-hover-bg: #4a5568; /* Darker hover */
-            --youtube-red: #ff4d4d;
-            --youtube-red-hover: #e60000;
-        }
-
-        /* RGB Breathing Colors for animations */
-        /* These are defined as custom properties for smooth transitions where supported */
-        @property --rgb-1-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
-        @property --rgb-1-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
-        @property --rgb-1-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
-
-        @property --rgb-2-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
-        @property --rgb-2-g { syntax: '<integer>'; inherits: false; initial-value: 165; }
-        @property --rgb-2-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
-
-        @property --rgb-3-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
-        @property --rgb-3-g { syntax: '<integer>'; inherits: false; initial-value: 255; }
-        @property --rgb-3-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
-
-        @property --rgb-4-r { syntax: '<integer>'; inherits: false; initial-value: 0; }
-        @property --rgb-4-g { syntax: '<integer>'; inherits: false; initial-value: 255; }
-        @property --rgb-4-b { syntax: '<integer>'; inherits: false; initial-value: 0; }
-
-        @property --rgb-5-r { syntax: '<integer>'; inherits: false; initial-value: 0; }
-        @property --rgb-5-g { syntax: '<integer>'; inherits: false; initial-value: 255; }
-        @property --rgb-5-b { syntax: '<integer>'; inherits: false; initial-value: 255; }
-
-        @property --rgb-6-r { syntax: '<integer>'; inherits: false; initial-value: 0; }
-        @property --rgb-6-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
-        @property --rgb-6-b { syntax: '<integer>'; inherits: false; initial-value: 255; }
-
-        @property --rgb-7-r { syntax: '<integer>'; inherits: false; initial-value: 128; }
-        @property --rgb-7-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
-        @property --rgb-7-b { syntax: '<integer>'; inherits: false; initial-value: 128; }
-
-        @property --rgb-8-r { syntax: '<integer>'; inherits: false; initial-value: 255; }
-        @property --rgb-8-g { syntax: '<integer>'; inherits: false; initial-value: 0; }
-        @property --rgb-8-b { syntax: '<integer>'; inherits: false; initial-value: 255; }
-
-
-        /* 設定 Inter 字體，提供圓潤的視覺效果 */
+        /* 設定全域字體為 Hanyi Senty Wen Kai */
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-section-alt) 50%, var(--bg-primary) 100%);
-            background-size: 400% 400%;
-            animation: gradientAnimation 20s ease infinite alternate; /* Slower gradient animation */
-            overflow-x: hidden;
-            padding-top: 5rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            color: var(--text-primary); /* Default text color, bright in dark mode */
-            transition: background-color 0.8s ease, color 0.8s ease; /* Smooth theme transition */
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer-2"><path d="m4 4 7.07 17.68 2.54-6.36 6.36-2.54L4 4z"/><path d="m13.5 13.5 1.5 1.5"/></svg>') 12 12, auto; /* Custom mouse cursor */
-            user-select: text; /* 允許文字選取 */
+            font-family: 'Hanyi Senty Wen Kai', cursive; /* 使用 Hanyi Senty Wen Kai 字體 */
+            overflow: hidden; /* 防止滾動條在動畫期間出現 */
+            position: relative; /* 為背景疊加層提供定位上下文 */
+            /* 新增的網頁背景 GIF */
+            background-image: url('https://i.pinimg.com/originals/4a/65/ab/4a65abeead3a8d113bccfee5d5d239f4.gif');
+            background-size: cover; /* 確保圖片覆蓋整個背景 */
+            background-attachment: fixed; /* 讓背景圖片固定不動 */
+            background-repeat: no-repeat; /* 不重複圖片 */
+            background-position: center center; /* 圖片居中 */
+            /* 自定義滑鼠游標為金色星星 */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gold" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.25l-6.18 3.25L7 14.14l-5-4.87 8.91-1.29L12 2z"/></svg>') 12 12, auto;
         }
 
-        /* 漸變背景動畫 */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        /* 自定義動畫：淡入效果 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 自定義動畫：向上彈跳效果 */
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            60% { opacity: 1; transform: scale(1.1); }
-            80% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        /* 文本陰影動畫 (RGB Breathing) */
-        @keyframes textRGBGlow {
-            0% { text-shadow: 0 0 8px rgba(var(--rgb-1-r), var(--rgb-1-g), var(--rgb-1-b), 0.7); }
-            12.5% { text-shadow: 0 0 8px rgba(var(--rgb-2-r), var(--rgb-2-g), var(--rgb-2-b), 0.7); }
-            25% { text-shadow: 0 0 8px rgba(var(--rgb-3-r), var(--rgb-3-g), var(--rgb-3-b), 0.7); }
-            37.5% { text-shadow: 0 0 8px rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.7); }
-            50% { text-shadow: 0 0 8px rgba(var(--rgb-5-r), var(--rgb-5-g), var(--rgb-5-b), 0.7); }
-            62.5% { text-shadow: 0 0 8px rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.7); }
-            75% { text-shadow: 0 0 8px rgba(var(--rgb-7-r), var(--rgb-7-g), var(--rgb-7-b), 0.7); }
-            87.5% { text-shadow: 0 0 8px rgba(var(--rgb-8-r), var(--rgb-8-g), var(--rgb-8-b), 0.7); }
-            100% { text-shadow: 0 0 8px rgba(var(--rgb-1-r), var(--rgb-1-g), var(--rgb-1-b), 0.7); }
-        }
-
-        /* 導航連結的脈動效果 (RGB Breathing) */
-        @keyframes navLinkRGBBreathing {
-            0% { box-shadow: 0 0 15px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), inset 0 0 8px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.6); }
-            12.5% { box-shadow: 0 0 15px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.8), inset 0 0 8px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.6); }
-            25% { box-shadow: 0 0 15px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.8), inset 0 0 8px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.6); }
-            37.5% { box-shadow: 0 0 15px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.8), inset 0 0 8px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.6); }
-            50% { box-shadow: 0 0 15px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.8), inset 0 0 8px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.6); }
-            62.5% { box-shadow: 0 0 15px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.8), inset 0 0 8px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.6); }
-            75% { box-shadow: 0 0 15px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.8), inset 0 0 8px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.6); }
-            87.5% { box-shadow: 0 0 15px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.8), inset 0 0 8px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.6); }
-            100% { box-shadow: 0 0 15px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), inset 0 0 8px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.6); }
-        }
-
-        /* 標題下方的彩虹移動線 */
-        @keyframes rainbowUnderlineMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        /* 區塊和社群按鈕的霓虹邊框光暈 */
-        @keyframes neonBorderGlow {
-            0% { box-shadow: 0 0 10px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.7), 0 0 20px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.5); }
-            12.5% { box-shadow: 0 0 10px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.7), 0 0 20px rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.5); }
-            25% { box-shadow: 0 0 10px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.7), 0 0 20px rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.5); }
-            37.5% { box-shadow: 0 0 10px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.7), 0 0 20px rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.5); }
-            50% { box-shadow: 0 0 10px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.7), 0 0 20px rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.5); }
-            62.5% { box-shadow: 0 0 10px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.7), 0 0 20px rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.5); }
-            75% { box-shadow: 0 0 10px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.7), 0 0 20px rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.5); }
-            87.5% { box-shadow: 0 0 10px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.7), 0 0 20px rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.5); }
-            100% { box-shadow: 0 0 10px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.7), 0 0 20px rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.5); }
-        }
-
-        .animate-fadeIn { animation: fadeIn 1s ease-out forwards; }
-        .animate-bounceIn { animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; } /* 更強烈的彈跳 */
-        .animate-textRGBGlow { animation: textRGBGlow 6s ease-in-out infinite alternate; } /* 較慢的 RGB 光暈 */
-
-        /* 影片卡片 hover 效果 */
-        .video-card:hover {
-            transform: translateY(-10px) scale(1.05); /* 更明顯的浮動和縮放 */
-            box-shadow: 0 20px 40px var(--shadow-color); /* 更深的陰影 */
-            border-color: rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.7); /* 綠色邊框光暈 */
-        }
-        .video-card {
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            background-color: var(--bg-section-alt); /* 卡片背景 */
-            color: var(--text-primary); /* 卡片文字顏色 */
-            border: 1px solid rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.3); /* 藍色邊框 */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .video-card h3 { color: var(--text-primary); }
-        .video-card p { color: var(--text-secondary); }
-
-        /* 確保圖片在加載失敗時有回退 */
-        img {
-            image-rendering: -webkit-optimize-contrast;
-        }
-
-        /* 區塊間距和背景色 */
-        .page-section {
-            margin-top: 3rem;
-            padding: 2.5rem;
-            background-color: var(--bg-section); /* 區塊背景 */
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 20px -3px var(--shadow-color), 0 4px 8px -2px rgba(0, 0, 0, 0.2);
-            max-width: 4xl;
+        /* 背景疊加層 - 靜態噪音/紋理 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.6s ease, box-shadow 0.6s ease;
-            position: relative; /* 用於霓虹邊框 */
-        }
-        .page-section.active {
-            opacity: 1;
-            transform: translateY(0);
-            animation: neonBorderGlow 8s infinite alternate; /* 活躍區塊的霓虹邊框 */
+            height: 100%;
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.1) 100%);
+            background-size: 200% 200%;
+            animation: subtle-pulse 20s infinite alternate;
+            z-index: -1; /* 確保在背景 GIF 之上但在內容之下 */
+            pointer-events: none;
         }
 
-        /* 導航連結的酷炫效果 (RGB Breathing) */
-        .nav-link {
-            position: relative;
-            padding: 0.75rem 1.25rem; /* 更大的點擊區域 */
-            border-radius: 1rem; /* 更圓潤 */
-            overflow: hidden;
-            transition: all 0.3s ease;
-            color: var(--text-primary); /* 預設文字顏色 */
-            font-weight: 700; /* 更粗的字體 */
-            text-decoration: none;
+        @keyframes subtle-pulse {
+            0% { background-position: 0% 0%; opacity: 0.8; }
+            100% { background-position: 100% 100%; opacity: 1; }
+        }
+
+        /* 卡片 3D 懸停效果 (僅限首頁卡片) */
+        .card-3d-effect {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, filter 0.3s ease-out; /* 添加 filter 過渡 */
+        }
+
+        .card-3d-effect:hover {
+            transform: rotateX(5deg) rotateY(5deg) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); /* 更明顯的陰影 */
+            filter: brightness(1.1) saturate(1.1); /* 輕微提亮和飽和度 */
+        }
+
+        /* 打字機效果的遊標閃爍動畫 */
+        @keyframes blinkCaret {
+            from, to { border-color: transparent }
+            50% { border-color: #fff; }
+        }
+
+        .typing-text {
+            border-right: .15em solid #fff; /* 打字機遊標 */
+            white-space: pre-wrap; /* 允許換行並保留空白符 */
+            overflow: hidden; /* 隱藏溢出文字 */
+            animation: blinkCaret .75s step-end infinite;
+        }
+        /* 當打字完成後，移除遊標 */
+        .typing-text.typed {
+            border-right: none;
+        }
+
+        /* 頁面切換動畫 */
+        .page-transition {
+            transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+        }
+        .page-hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none; /* 完全隱藏 */
+        }
+        .page-visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            display: flex; /* 根據佈局需要顯示 */
+        }
+
+        /* 全螢幕卡片樣式 - 強化開啟特效 */
+        .fullscreen-card-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1;
-            background-color: var(--bg-section-alt); /* 導航連結背景 */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-            border: 1px solid transparent; /* 用於 RGB 邊框 */
+            /* 將背景顏色改為透明，讓 GIF 背景透出 */
+            background-color: transparent; 
+            z-index: 50; /* 確保在最上層 */
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0; /* 初始隱藏 */
+            /* 隨機初始旋轉和縮放 */
+            transform: scale(0.5) rotate(calc(var(--random-rotate) * 1deg));
+            filter: blur(10px); /* 初始模糊 */
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
         }
-
-        .nav-link::before { /* RGB 邊框 */
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: conic-gradient(from 0deg at 50% 50%, 
-                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), 
-                        rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.8), 
-                        rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.8), 
-                        rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.8), 
-                        rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.8), 
-                        rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.8), 
-                        rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.8), 
-                        rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.8),
-                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8));
-            border-radius: 1rem; /* 匹配按鈕圓角 */
-            filter: blur(3px); /* 輕微模糊 */
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-            animation: rotateGlow 2s linear infinite; /* 持續旋轉 */
-        }
-        .nav-link:hover::before {
+        .fullscreen-card-container.page-visible {
             opacity: 1;
-        }
-        .nav-link:hover {
-            color: var(--accent-color); /* hover 時的文字顏色 */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            transform: scale(1) rotate(0deg); /* 顯示狀態 */
+            filter: blur(0px); /* 清晰顯示 */
         }
 
-        .nav-link.active-nav {
-            background-color: var(--accent-color); /* 活躍背景顏色 */
-            color: var(--bg-primary); /* 活躍文字顏色 (亮色模式下會是淺色，暗色模式下會是深色) */
-            box-shadow: 0 0 20px rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.9), inset 0 0 10px rgba(var(--rgb-4-r), var(--rgb-4-g), var(--rgb-4-b), 0.7); /* 更強的綠色光暈 */
-            animation: navLinkRGBBreathing 4s infinite alternate; /* RGB 呼吸燈 */
-            transform: scale(1.05); /* 活躍時稍微放大 */
-        }
-        /* 修正活躍導航連結在亮色模式下的文字顏色 */
-        body:not(.dark-mode) .nav-link.active-nav {
-            color: #ffffff; /* 亮色模式下活躍連結文字為白色 */
-        }
-        body.dark-mode .nav-link.active-nav {
-            color: #0a0a0a; /* 暗色模式下活躍連結文字為深色，與亮色背景形成對比 */
-        }
-
-        .nav-link.active-nav::before {
-            opacity: 0; /* 活躍狀態覆蓋 hover 光暈 */
-            animation: none;
-        }
-
-        @keyframes rotateGlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* 標題的酷炫樣式 */
-        .cool-heading {
-            text-shadow: 0 0 10px rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.6); /* 預設藍色光暈 */
-            position: relative;
-            display: inline-block;
-            color: var(--text-primary); /* 標題文字明亮 */
-            animation: textRGBGlow 6s ease-in-out infinite alternate; /* RGB 呼吸燈光暈 */
-        }
-        .cool-heading::after { /* 彩虹線下劃線 */
-            content: '';
-            display: block;
-            width: 100%; /* 全寬 */
-            height: 4px;
-            background: linear-gradient(90deg, 
-                        rgb(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b)), 
-                        rgb(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b)), 
-                        rgb(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b)), 
-                        rgb(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b)), 
-                        rgb(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b)), 
-                        rgb(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b)), 
-                        rgb(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b)), 
-                        rgb(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b)));
-            background-size: 200% 100%; /* 用於移動漸變 */
-            border-radius: 2px;
-            margin: 0.5rem auto 0;
-            transform: scaleX(0);
-            animation: underlineExpand 0.8s ease-out forwards, rainbowUnderlineMove 4s linear infinite; /* 展開然後移動 */
-            animation-delay: 0.2s;
-        }
-
-        @keyframes underlineExpand {
-            from { transform: scaleX(0); }
-            to { transform: scaleX(1); }
-        }
-
-        /* 技能/興趣列表項的動畫 */
-        .list-item-animate {
-            transform: translateX(-30px); /* 更大的位移 */
-            opacity: 0;
-            animation: slideInRight 0.6s ease-out forwards;
-        }
-        @keyframes slideInRight {
-            from { transform: translateX(-30px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Header 背景 */
-        header {
-            background-color: var(--header-bg);
-            transition: background-color 0.5s ease;
-            border-bottom: 2px solid rgba(var(--rgb-6-r), var(--rgb-6-g), var(--rgb-6-b), 0.3); /* 底部藍線 */
-        }
-
-        /* Footer 文字顏色 */
-        footer {
-            color: var(--text-secondary);
-            transition: color 0.5s ease;
-        }
-
-        /* 社群媒體按鈕樣式 */
-        .social-button {
-            position: relative;
-            background-color: var(--bg-section-alt); /* 按鈕背景 */
-            color: var(--text-primary);
-            border-radius: 1.5rem; /* 更圓潤 */
-            padding: 1rem 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.125rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border: 2px solid transparent; /* 用於 RGB 邊框光暈 */
-        }
-
-        .social-button:hover {
-            transform: translateY(-8px) scale(1.05); /* 更明顯的浮動和縮放 */
-            box-shadow: 0 12px 25px var(--shadow-color);
-            color: var(--accent-color); /* hover 時的文字顏色 */
-            animation: neonBorderGlow 2s infinite alternate; /* 社群按鈕的霓虹邊框 */
-        }
-
-        /* 社群按鈕的 RGB 邊框光暈 (霓虹 GDI) */
-        .social-button::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: -3px; right: -3px; bottom: -3px;
-            background: conic-gradient(from 0deg at 50% 50%, 
-                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8), 
-                        rgba(var(--rgb-2-r),var(--rgb-2-g),var(--rgb-2-b),0.8), 
-                        rgba(var(--rgb-3-r),var(--rgb-3-g),var(--rgb-3-b),0.8), 
-                        rgba(var(--rgb-4-r),var(--rgb-4-g),var(--rgb-4-b),0.8), 
-                        rgba(var(--rgb-5-r),var(--rgb-5-g),var(--rgb-5-b),0.8), 
-                        rgba(var(--rgb-6-r),var(--rgb-6-g),var(--rgb-6-b),0.8), 
-                        rgba(var(--rgb-7-r),var(--rgb-7-g),var(--rgb-7-b),0.8), 
-                        rgba(var(--rgb-8-r),var(--rgb-8-g),var(--rgb-8-b),0.8),
-                        rgba(var(--rgb-1-r),var(--rgb-1-g),var(--rgb-1-b),0.8));
-            border-radius: 1.5rem; /* 匹配按鈕圓角 */
-            filter: blur(8px); /* 更強的模糊，營造霓虹效果 */
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .social-button:hover::before {
-            opacity: 1;
-            animation: rotateGlow 2s linear infinite; /* 重複使用 rotateGlow */
-        }
-
-        .social-button svg {
-            margin-right: 0.75rem;
-            width: 2.25rem; /* w-9 */
-            height: 2.25rem; /* h-9 */
-            transition: transform 0.3s ease;
-        }
-        .social-button:hover svg {
-            transform: rotate(15deg) scale(1.15); /* hover 時圖標動畫更明顯 */
-        }
-
-        /* 社群圖標的特定品牌顏色 */
-        .social-button.youtube-btn { background-color: var(--youtube-red); color: white; }
-        .social-button.youtube-btn:hover { background-color: var(--youtube-red-hover); }
-        .social-button.youtube-btn svg { fill: currentColor; } /* 使用 currentColor 讓 SVG 繼承文字顏色 */
-
-        .social-button.instagram-btn { 
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #9b22e1, #6246f6, #3b5bfd);
-            color: white;
-        }
-        .social-button.instagram-btn:hover { 
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #9b22e1, #6246f6, #3b5bfd); /* hover 時保持漸變 */
-            filter: brightness(1.1); /* hover 時稍微提亮 */
-        }
-        .social-button.instagram-btn svg { fill: currentColor; } /* 使用 currentColor 讓 SVG 繼承文字顏色 */
-
-        .social-button.threads-btn {
-            background-color: #000000; /* Threads logo is black */
-            color: white;
-        }
-        body.dark-mode .social-button.threads-btn {
-            background-color: #ffffff; /* White in dark mode */
-            color: #000000;
-        }
-        .social-button.threads-btn:hover {
-            filter: brightness(0.8); /* Darken on hover */
-        }
-        body.dark-mode .social-button.threads-btn:hover {
-            filter: brightness(0.9); /* Slightly darken on hover in dark mode */
-        }
-        .social-button.threads-btn svg { fill: currentColor; }
-
-
-        /* 視差容器 */
-        #parallax-container {
-            transition: transform 0.1s ease-out; /* 平滑的視差移動 */
-            transform-style: preserve-3d; /* 啟用 3D 變換 */
-            perspective: 1000px; /* 3D 效果的透視 */
-            width: 100%; /* 確保佔滿全寬 */
+        .fullscreen-card {
+            background-color: rgba(255, 255, 255, 0.5); /* 提高透明度，讓毛玻璃更明顯 */
+            backdrop-filter: blur(35px); /* 更強的毛玻璃模糊效果 */
+            -webkit-backdrop-filter: blur(35px); /* 兼容性 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 3rem; /* 大圓角 */
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto; /* 允許內容滾動 */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* 視差變換將由 JS 直接應用到這裡 */
-        }
-        /* 區塊的輕微旋轉，用於視差 */
-        .page-section {
-            transform-origin: center center;
-            /* 視差的初始變換將由 JS 設定 */
+            text-align: center;
+            position: relative;
         }
 
-        /* 主題切換按鈕特定顏色 */
-        #theme-toggle #sun-icon { color: #facc15; } /* Tailwind yellow-400 */
-        #theme-toggle #moon-icon { color: #4f46e5; } /* Tailwind indigo-700 */
-
-        body.dark-mode #theme-toggle #sun-icon { color: #fde047; } /* 暗色模式下更亮的黃色 */
-        body.dark-mode #theme-toggle #moon-icon { color: #a5b4fc; } /* 暗色模式下更淺的靛藍色 */
-
-        /* 主題切換圖標動畫 */
-        .theme-icon-enter {
-            animation: iconEnter 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        /* 調整全螢幕卡片內文字顏色以確保清晰度 */
+        .fullscreen-card h2 {
+            /* 標題使用鮮明的漸變色，並增加文字陰影 */
+            background-image: linear-gradient(to right, #FFD700, #FFA500); /* 金橙漸變 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* 更強的陰影增加可讀性 */
         }
-        .theme-icon-exit {
-            animation: iconExit 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        .fullscreen-card p {
+            color: #FFF; /* 內容文字使用白色 */
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.9); /* 更強的陰影增加可讀性 */
         }
 
-        @keyframes iconEnter {
-            from { opacity: 0; transform: scale(0.5) rotate(-90deg); }
-            to { opacity: 1; transform: scale(1) rotate(0deg); }
+
+        .fullscreen-card .message-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            text-align: left;
+            padding-right: 1rem; /* 為滾動條留出空間 */
+            max-height: calc(100vh - 250px); /* 調整高度以適應不同螢幕 */
         }
-        @keyframes iconExit {
-            from { opacity: 1; transform: scale(1) rotate(0deg); }
-            to { opacity: 0; transform: scale(0.5) rotate(90deg); }
+
+        /* 自定義滾動條樣式 */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.3); /* 滾動條背景也半透明 */
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(136, 136, 136, 0.7); /* 滾動條滑塊半透明 */
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(85, 85, 85, 0.9);
+        }
+
+        /* 背景粒子動畫 (已移除，因為有 GIF 背景) */
+        /* @keyframes particle-fade-scale {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(0.5); opacity: 0; }
+        }
+
+        .bg-particle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: particle-fade-scale 8s ease-in-out infinite;
+        } */
+
+        /* 新的回首頁特效 CSS (Starlight Dissolve 升級版) */
+        .starlight-effect-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* 黑色背景 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            overflow: hidden;
+            opacity: 0; /* 初始隱藏 */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .starlight-effect-container.active {
+            opacity: 1;
+        }
+
+        .starlight-particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            opacity: 0;
+            animation: starlight-twinkle 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes starlight-twinkle {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+
+        .starlight-ripple {
+            position: absolute;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(173, 216, 230, 0.5) 0%, rgba(173, 216, 230, 0) 70%); /* 淺藍色光暈 */
+            border-radius: 50%;
+            opacity: 0;
+            transform: translate(-50%, -50%); /* 確保中心點在正中 */
+            animation: starlight-ripple-expand 1.5s ease-out forwards;
+        }
+
+        @keyframes starlight-ripple-expand {
+            0% { width: 0; height: 0; opacity: 0.8; }
+            100% { width: 1500px; height: 1500px; opacity: 0; }
+        }
+
+        /* 互動式滑鼠火花特效 */
+        .sparkle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle-fade 0.8s forwards;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            z-index: 60; /* 確保在卡片內容之上 */
+        }
+
+        @keyframes sparkle-fade {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(0.5); opacity: 0; }
+        }
+
+        /* 按鈕強化 */
+        .open-card-btn, #return-home-button {
+            transition: all 0.3s ease-in-out;
+        }
+        .open-card-btn:hover, #return-home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 單獨卡片佈局調整 */
+        .single-card-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem; /* 手機優化：增加內邊距 */
+            box-sizing: border-box;
+        }
+
+        .single-card-wrapper {
+            width: 100%;
+            max-width: 500px; /* 限制最大寬度 */
+            min-height: 450px; /* 確保足夠高度 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* 將水玻璃效果應用到封面卡片 */
+            background-color: rgba(255, 255, 255, 0.5); /* 提高透明度，讓毛玻璃更明顯 */
+            backdrop-filter: blur(35px); /* 更強的毛玻璃模糊效果 */
+            -webkit-backdrop-filter: blur(35px); /* 兼容性 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 3rem; /* 大圓角 */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* 陰影 */
+        }
+        /* 調整封面卡片標題顏色以適應水玻璃背景 */
+        .single-card-wrapper h2 {
+            /* 標題使用鮮明的漸變色，並增加文字陰影 */
+            background-image: linear-gradient(to right, #FFD700, #FFA500); /* 金橙漸變 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* 更強的陰影增加可讀性 */
         }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <!-- 固定導航列 -->
-    <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 backdrop-blur-sm z-50 shadow-md rounded-b-2xl px-4 py-3">
-        <nav class="max-w-4xl mx-auto flex justify-center space-x-4 sm:space-x-8">
-            <a href="#home-page" class="nav-link" data-page="home-page"><span>首頁</span></a>
-            <a href="#about-page" class="nav-link" data-page="about-page"><span>關於我</span></a>
-            <a href="#skills-page" class="nav-link" data-page="skills-page"><span>我的興趣與技能</span></a>
-            <a href="#videos-page" class="nav-link" data-page="videos-page"><span>最新影片</span></a>
-            <a href="#contact-page" class="nav-link" data-page="contact-page"><span>聯絡我們</span></a>
-        </nav>
-        <!-- 主題切換按鈕 -->
-        <button id="theme-toggle" class="absolute top-4 right-4 p-2 rounded-full transform transition-transform duration-300">
-            <!-- 太陽圖標 (來自 Lucide Icons - 為更好的外觀而自定義) -->
-            <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="5"/>
-                <line x1="12" y1="1" x2="12" y2="3"/>
-                <line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-            <!-- 月亮圖標 (來自 Lucide Icons - 為更好的外觀而自定義) -->
-            <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-            </svg>
-        </button>
-    </header>
-
-    <div id="app-container" class="flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8 flex-grow">
-        <!-- 視差容器 -->
-        <div id="parallax-container" class="w-full max-w-4xl flex flex-col items-center">
-            <!-- 首頁區塊 -->
-            <section id="home-page" class="page-section active text-center animate-fadeIn">
-                <!-- 橫幅區塊 -->
-                <div class="relative w-full rounded-3xl shadow-xl overflow-hidden mb-8">
-                    <img src="https://yt3.googleusercontent.com/DJxyHuvIJfZPyrWtzkSE97ifPNqMob1D7qq5sRNz_wUePcG_CljuwqY6GaexeUhv2T03OvqxjA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" 
-                         alt="橫幅圖片" 
-                         class="w-full h-48 object-cover object-center rounded-t-3xl"
-                         onerror="this.onerror=null;this.src='https://placehold.co/1707x480/cccccc/333333?text=Banner+Image+Not+Found';">
-                </div>
-
-                <!-- 頭像與個人資訊簡介 -->
-                <div class="relative -mt-24 sm:-mt-28 md:-mt-32 lg:-mt-36 z-10 animate-bounceIn">
-                    <img src="https://yt3.googleusercontent.com/TQ0gSJnVWwWm1w775-fnh2JapfVM0yfVXSlfSQ0lqoynpE9q1PtSyf9i3BuI7ufqukBkA4eYmRs=s160-c-k-c0x00ffffff-no-rj" 
-                         alt="阿維喵 Avi 的頭像" 
-                         class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full border-4 border-white shadow-lg mx-auto object-cover">
-                </div>
-                
-                <div class="mt-8">
-                    <h1 class="text-4xl font-extrabold mb-2 animate-textRGBGlow cool-heading">阿維喵 Avi</h1>
-                    <p class="text-xl mb-4 animate-fadeIn" style="animation-delay: 0.6s;">Roblox動畫師、玩遊戲的人</p>
-                    <p class="text-md max-w-2xl mx-auto animate-fadeIn" style="animation-delay: 0.7s;">
-                        歡迎來到阿維喵 Avi 的個人檔案！這裡記錄著我作為 Roblox 動畫師的創作旅程，以及我對各種遊戲的熱愛。
-                        希望我的影片能帶給你歡樂和啟發！
-                    </p>
-                </div>
-            </section>
-
-            <!-- 關於我區塊 -->
-            <section id="about-page" class="page-section hidden text-center animate-fadeIn">
-                <h2 class="text-3xl font-bold mb-6 cool-heading">關於我</h2>
-                <div class="text-lg leading-relaxed space-y-4">
-                    <p class="animate-fadeIn" style="animation-delay: 0.2s;">
-                        哈囉！我是阿維喵 Avi，一個熱衷於在 Roblox 平台創作動畫的夢想家。從簡單的角色動作到複雜的場景敘事，我享受將腦海中的奇思妙想轉化為生動的視覺故事。對我來說，Roblox 不僅僅是一個遊戲平台，更是一個充滿無限可能的創作天地。
-                    </p>
-                    <p class="animate-fadeIn" style="animation-delay: 0.3s;">
-                        除了動畫製作，我也是一個不折不扣的遊戲愛好者。從策略遊戲到開放世界冒險，我都樂於探索和挑戰。我喜歡分享我的遊戲體驗，無論是精彩的瞬間、有趣的發現，還是對遊戲的獨到見解。
-                    </p>
-                    <p class="animate-fadeIn" style="animation-delay: 0.4s;">
-                        我的頻道和這個個人檔案頁面，就是我分享熱情和成果的地方。希望能透過我的作品和內容，與更多同好交流，一起探索創意和遊戲的樂趣！
-                    </p>
-                </div>
-            </section>
-
-            <!-- 我的興趣與技能區塊 -->
-            <section id="skills-page" class="page-section hidden animate-fadeIn">
-                <h2 class="text-3xl font-bold text-center mb-6 cool-heading">我的興趣與技能</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
-                    <div class="animate-fadeIn" style="animation-delay: 0.2s;">
-                        <h3 class="text-2xl font-semibold mb-3">主要興趣</h3>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li class="list-item-animate" style="animation-delay: 0.3s;">Roblox 動畫製作與設計</li>
-                            <li class="list-item-animate" style="animation-delay: 0.4s;">探索各種電子遊戲（PC、主機、手遊）</li>
-                            <li class="list-item-animate" style="animation-delay: 0.5s;">影片剪輯與後製</li>
-                            <li class="list-item-animate" style="animation-delay: 0.6s;">學習新的創作工具與技術</li>
-                            <li class="list-item-animate" style="animation-delay: 0.7s;">與社群互動和分享經驗</li>
-                        </ul>
-                    </div>
-                    <div class="animate-fadeIn" style="animation-delay: 0.8s;">
-                        <h3 class="text-2xl font-semibold mb-3">技能專長</h3>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li class="list-item-animate" style="animation-delay: 0.9s;">Roblox Studio 動畫編排</li>
-                            <li class="list-item-animate" style="animation-delay: 1.0s;">角色動作設計與表情捕捉</li>
-                            <li class="list-item-animate" style="animation-delay: 1.1s;">基礎場景建構與燈光設定</li>
-                            <li class="list-item-animate" style="animation-delay: 1.2s;">影片內容策劃與腳本撰寫</li>
-                            <li class="list-item-animate" style="animation-delay: 1.3s;">遊戲實況與解說</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 最新影片專區 -->
-            <section id="videos-page" class="page-section hidden section-alt-bg animate-fadeIn">
-                <h2 class="text-3xl font-bold text-center mb-6 cool-heading">最新影片</h2>
-                <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- 影片將會動態加載到這裡 -->
-                    <p class="col-span-full text-center text-secondary" id="loading-message">正在加載影片，請稍候...</p>
-                </div>
-                <p class="text-center text-red-500 mt-4 hidden" id="error-message">
-                    無法加載影片。請檢查您的 YouTube API Key 是否正確，或稍後再試。
-                </p>
-            </section>
-
-            <!-- 聯絡我們區塊 -->
-            <section id="contact-page" class="page-section hidden text-center animate-fadeIn">
-                <h2 class="text-3xl font-bold mb-6 cool-heading">聯絡我們</h2>
-                <p class="text-lg text-secondary mb-8 animate-fadeIn" style="animation-delay: 0.2s;">
-                    想找到阿維喵 Avi？透過以下平台可以聯絡到我，期待與你交流！
-                </p>
-                <div class="flex flex-wrap justify-center gap-6">
-                    <!-- YouTube -->
-                    <a href="https://www.youtube.com/channel/UC9xI1GjFS_4Bar72B5CGKxw" target="_blank" rel="noopener noreferrer"
-                       class="social-button youtube-btn animate-bounceIn" style="animation-delay: 0.3s;">
-                        <!-- 通用連結圖標 (Lucide Icons) - 簡潔路徑 -->
-                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                        </svg>
-                        <span>YouTube</span>
-                    </a>
-                    <!-- Instagram -->
-                    <a href="https://www.instagram.com/aviooo2023" target="_blank" rel="noopener noreferrer"
-                       class="social-button instagram-btn animate-bounceIn" style="animation-delay: 0.4s;">
-                        <!-- 通用連結圖標 (Lucide Icons) - 簡潔路徑 -->
-                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                        </svg>
-                        <span>Instagram</span>
-                    </a>
-                    <!-- Threads -->
-                    <a href="https://threads.com/@aviooo2023" target="_blank" rel="noopener noreferrer"
-                       class="social-button threads-btn animate-bounceIn" style="animation-delay: 0.5s;">
-                        <!-- 通用連結圖標 (Lucide Icons) - 簡潔路徑 -->
-                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                        </svg>
-                        <span>Threads</span>
-                    </a>
-                </div>
-            </section>
+    <!-- 單張卡片佈局 -->
+    <div id="single-card-page" class="page-transition page-visible single-card-container">
+        <!-- 惠卿姑姑的卡片封面 -->
+        <div class="card-3d-effect relative single-card-wrapper">
+            <!-- 內部背景裝飾，現在應用在水玻璃卡片內部 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-600 opacity-10 rounded-3xl blur-xl"></div>
+            <div class="relative z-20 flex flex-col items-center justify-center h-full w-full">
+                <h2 class="text-5xl font-extrabold mb-6 text-center">
+                    給惠卿姑姑
+                </h2>
+                <button id="open-huiqing-card" class="open-card-btn mt-8 px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-300">
+                    點擊開啟卡片 💖
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- 頁腳 -->
-    <footer class="mt-auto py-8 text-sm text-center w-full">
-        <p>&copy; <span id="current-year"></span> 阿維喵 Avi 版權所有</p>
-        <p>由 椰子水培根 製作</p>
-    </footer>
+    <!-- 全螢幕卡片內容 (預設隱藏) -->
+    <div id="fullscreen-card-page" class="page-transition page-hidden fullscreen-card-container">
+        <div id="active-fullscreen-card" class="fullscreen-card">
+            <h2 id="fullscreen-card-title" class="text-5xl font-extrabold mb-6"></h2>
+            <p class="text-lg md:text-xl leading-relaxed mb-6 message-content custom-scrollbar">
+                <span id="fullscreen-message" class="typing-text inline-block text-left w-full"></span>
+            </p>
+            <p class="text-gray-600 text-md md:text-lg mt-auto font-semibold">
+                衷心感謝，<br>祉龍 敬上
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-8 w-full justify-center">
+                <button id="return-home-button" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    回首頁
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 特效容器 (預設隱藏) -->
+    <div id="effect-page" class="page-transition page-hidden starlight-effect-container">
+        <!-- 特效元素會在這裡動態生成 -->
+    </div>
 
     <script>
-        // 在這裡填入您的 YouTube Data API Key
-        // 如何取得 API Key: https://developers.google.com/youtube/v3/getting_started
-        // 注意：在實際部署時，為安全考量，API Key 不應直接暴露在前端程式碼中。
-        const YOUTUBE_API_KEY = 'AIzaSyARZ8ZtqPF2kRCNEMsHFtxZHXWFkg4YJjg'; // <-- 已替換為您提供的 API Key
-        const CHANNEL_ID = 'UC9xI1GjFS_4Bar72B5CGKxw'; // 阿維喵 Avi 的 YouTube 頻道 ID
+        // 打字機效果函數
+        function typeMessage(elementId, message, delay = 30) {
+            const element = document.getElementById(elementId);
+            let i = 0;
+            element.textContent = ''; // 清空內容以開始打字
+            element.classList.remove('typed'); // 確保遊標顯示
+            element.classList.add('typing-text'); // 確保打字效果類別存在
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // 動態設定版權年份
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // 主題切換邏輯
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const sunIcon = document.getElementById('sun-icon');
-            const moonIcon = document.getElementById('moon-icon');
-
-            // 檢查 localStorage 以載入上次的主題偏好
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            } else {
-                document.body.classList.remove('dark-mode'); // 確保移除 dark-mode 以防萬一
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
-            }
-
-            themeToggleBtn.addEventListener('click', () => {
-                const isDarkMode = document.body.classList.contains('dark-mode');
-                
-                // Animate icons out
-                if (isDarkMode) {
-                    sunIcon.classList.add('theme-icon-exit');
-                } else {
-                    moonIcon.classList.add('theme-icon-exit');
-                }
-
-                // Toggle theme after a short delay to allow exit animation
-                setTimeout(() => {
-                    document.body.classList.toggle('dark-mode');
-                    if (document.body.classList.contains('dark-mode')) {
-                        localStorage.setItem('theme', 'dark');
-                        moonIcon.classList.add('hidden');
-                        sunIcon.classList.remove('hidden');
-                        sunIcon.classList.remove('theme-icon-exit');
-                        sunIcon.classList.add('theme-icon-enter');
+            return new Promise(resolve => {
+                function typeChar() {
+                    if (i < message.length) {
+                        element.textContent += message.charAt(i);
+                        i++;
+                        setTimeout(typeChar, delay);
                     } else {
-                        localStorage.setItem('theme', 'light');
-                        moonIcon.classList.remove('theme-icon-exit'); // Remove exit animation if it was applied
-                        moonIcon.classList.remove('hidden');
-                        sunIcon.classList.add('hidden');
-                        moonIcon.classList.add('theme-icon-enter');
+                        element.classList.remove('typing-text');
+                        element.classList.add('typed');
+                        resolve(); // 打字完成後解決 Promise
                     }
-                }, 200); // Adjust delay to match exit animation duration
+                }
+                typeChar();
             });
+        }
 
-            // 處理頁面切換
-            const pageSections = document.querySelectorAll('.page-section');
-            const navLinks = document.querySelectorAll('.nav-link');
+        // 超酷回首頁特效函數 (Starlight Dissolve 升級版)
+        function triggerStarlightEffect() {
+            const effectPage = document.getElementById('effect-page');
+            const singleCardPage = document.getElementById('single-card-page');
+            const fullscreenCardPage = document.getElementById('fullscreen-card-page');
 
-            function showPage(pageId) {
-                // 隱藏所有頁面並移除 active 類
-                pageSections.forEach(section => {
-                    section.classList.remove('active');
-                    section.classList.add('hidden'); // 確保隱藏
-                });
+            // 隱藏當前頁面
+            fullscreenCardPage.classList.remove('page-visible');
+            fullscreenCardPage.classList.add('page-hidden');
 
-                // 移除所有導航連結的 active 樣式
-                navLinks.forEach(link => link.classList.remove('active-nav'));
+            // 顯示特效頁面並激活動畫
+            effectPage.classList.remove('page-hidden');
+            effectPage.classList.add('active'); // 激活過渡動畫
+            effectPage.innerHTML = ''; // 清空之前的特效元素
 
-                // 顯示目標頁面並添加 active 類
-                const targetPage = document.getElementById(pageId);
-                if (targetPage) {
-                    targetPage.classList.remove('hidden'); // 先移除 hidden
-                    // 強制重繪以確保動畫重新觸發
-                    void targetPage.offsetWidth; 
-                    targetPage.classList.add('active'); // 添加 active 觸發動畫
-                    window.scrollTo(0, 0); // 滾動到頁面頂部
-                }
+            const numParticles = 250; // 增加星光數量，讓效果更密集
+            const effectDuration = 3000; // 特效持續時間 (毫秒)，再次延長
 
-                // 為當前活躍的導航連結添加 active 樣式
-                const activeNavLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
-                if (activeNavLink) {
-                    activeNavLink.classList.add('active-nav');
-                }
+            // 創建星光粒子
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('starlight-particle');
+                // 讓粒子從中心附近生成，然後向外擴散
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 800; // 初始距離更大
+                const startX = `calc(50% + ${Math.cos(angle) * distance}px)`;
+                const startY = `calc(50% + ${Math.sin(angle) * distance}px)`;
+
+                particle.style.left = startX;
+                particle.style.top = startY;
+                particle.style.animationDelay = `${Math.random() * 2.5}s`; // 隨機延遲
+                particle.style.width = `${Math.random() * 6 + 4}px`; // 隨機大小
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = `rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${0.6 + Math.random() * 0.4})`; // 隨機顏色和亮度
+                effectPage.appendChild(particle);
             }
 
-            // 為導航連結添加點擊事件監聽器
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageId = e.target.closest('a').dataset.page; // 使用 dataset 獲取頁面 ID
-                    showPage(pageId);
-                    // 如果是影片頁面，才觸發影片加載
-                    if (pageId === 'videos-page' && !videosLoaded) {
-                        fetchLatestYouTubeVideos();
-                    }
-                });
+            // 創建中心光暈漣漪
+            const ripple = document.createElement('div');
+            ripple.classList.add('starlight-ripple');
+            effectPage.appendChild(ripple);
+
+            // 等待特效動畫完成後返回首頁 (此處為卡片封面)
+            setTimeout(() => {
+                effectPage.classList.remove('active'); // 移除激活狀態，觸發淡出
+                // 等待淡出完成
+                setTimeout(() => {
+                    effectPage.classList.add('page-hidden'); // 完全隱藏特效頁面
+                    singleCardPage.classList.remove('page-hidden');
+                    singleCardPage.classList.add('page-visible');
+                    effectPage.innerHTML = ''; // 清空特效元素
+                }, 700); // 與 CSS transition 的時間一致
+            }, effectDuration);
+        }
+
+        // 滑鼠火花特效函數
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            const size = Math.random() * 8 + 4; // 隨機大小
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            document.body.appendChild(sparkle);
+
+            sparkle.addEventListener('animationend', () => {
+                sparkle.remove();
             });
+        }
 
-            // 初始載入首頁
-            showPage('home-page');
+        // 頁面載入完成後執行
+        window.onload = function() {
+            // 惠卿姑姑的訊息內容，使用 \n\n 來表示段落分隔
+            const messageHuiqing = `親愛的惠卿姑姑：\n\n您好！我是祉龍。\n\n上次上程式課程下課後，真的非常謝謝姑姑都會請我喝便利超商的飲料！每次下課都覺得有點累，但一想到有飲料可以喝，精神就來了，真的超開心的！而且姑姑每次都讓我自己選想喝的，感覺特別貼心。\n\n還有，這次我想要旁聽上課，雖然最後沒有成功，但是姑姑還是很努力地幫我處理這個問題，真的讓我很感動。我知道姑姑為了這件事也花了很多時間和心力，雖然結果不如預期，但我還是非常非常謝謝姑姑為我付出的一切！\n\n姑姑對我的照顧，我都記在心裡。希望姑姑每天都開開心心，身體健康！`;
 
-            // 影片只加載一次，避免重複 API 請求
-            let videosLoaded = false;
+            const singleCardPage = document.getElementById('single-card-page');
+            const openHuiqingCardButton = document.getElementById('open-huiqing-card');
+            const fullscreenCardPage = document.getElementById('fullscreen-card-page');
+            const fullscreenCardTitle = document.getElementById('fullscreen-card-title');
+            const fullscreenMessage = document.getElementById('fullscreen-message');
+            const returnHomeButton = document.getElementById('return-home-button');
 
-            async function fetchLatestYouTubeVideos() {
-                videosLoaded = true; // 設定為已加載
-                const videosContainer = document.getElementById('videos-container');
-                const loadingMessage = document.getElementById('loading-message');
-                const errorMessage = document.getElementById('error-message');
+            // 處理卡片開啟邏輯
+            openHuiqingCardButton.addEventListener('click', function() {
+                // 隱藏單張卡片封面
+                singleCardPage.classList.remove('page-visible');
+                singleCardPage.classList.add('page-hidden');
 
-                loadingMessage.classList.remove('hidden');
-                errorMessage.classList.add('hidden');
-                videosContainer.innerHTML = ''; // 清空舊內容
+                // 設置隨機旋轉角度給全螢幕卡片
+                const randomRotate = (Math.random() - 0.5) * 10; // -5 到 5 度
+                fullscreenCardPage.style.setProperty('--random-rotate', randomRotate);
 
-                if (YOUTUBE_API_KEY === 'YOUR_YOUTUBE_API_KEY' || !YOUTUBE_API_KEY) {
-                    loadingMessage.classList.add('hidden');
-                    errorMessage.textContent = '請在程式碼中填寫您的 YouTube API Key 以加載影片。';
-                    errorMessage.classList.remove('hidden');
-                    return;
+                // 顯示全螢幕卡片頁面
+                fullscreenCardPage.classList.remove('page-hidden');
+                fullscreenCardPage.classList.add('page-visible');
+
+                // 設定全螢幕卡片內容
+                fullscreenCardTitle.textContent = '給惠卿姑姑';
+                // 這裡不再需要設置 bg-clip-text 和 text-transparent，因為 h2 的樣式已經在 CSS 中直接定義了顏色
+                fullscreenCardTitle.classList.remove('bg-clip-text', 'text-transparent', 'bg-gradient-to-r', 'from-purple-600', 'to-pink-800');
+                
+                // 確保內容區域的滾動條在打字前重置到頂部
+                const messageContainer = fullscreenCardPage.querySelector('.message-content');
+                if (messageContainer) {
+                    messageContainer.scrollTop = 0;
                 }
 
-                try {
-                    // 1. 獲取頻道的上傳播放列表 ID
-                    const channelResponse = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${YOUTUBE_API_KEY}`);
-                    if (!channelResponse.ok) {
-                        throw new Error(`HTTP error! status: ${channelResponse.status}`);
-                    }
-                    const channelData = await channelResponse.json();
-                    
-                    // 檢查 channelData.items 是否存在且非空
-                    if (!channelData.items || channelData.items.length === 0) {
-                        throw new Error('找不到頻道資訊，請檢查頻道 ID 是否正確。');
-                    }
+                // 開始打字效果
+                typeMessage('fullscreen-message', messageHuiqing);
+            });
 
-                    const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+            // 為回首頁按鈕添加事件監聽器
+            returnHomeButton.addEventListener('click', function() {
+                triggerStarlightEffect(); // 觸發超酷回首頁特效
+            });
 
-                    // 2. 獲取播放列表中的最新影片
-                    // maxResults=6 表示獲取最多6個影片
-                    const videosResponse = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${uploadsPlaylistId}&maxResults=6&key=${YOUTUBE_API_KEY}`);
-                    if (!videosResponse.ok) {
-                        throw new Error(`HTTP error! status: ${videosResponse.status}`);
-                    }
-                    const videosData = await videosResponse.json();
-
-                    loadingMessage.classList.add('hidden'); // 隱藏加載訊息
-
-                    if (!videosData.items || videosData.items.length === 0) {
-                        videosContainer.innerHTML = '<p class="col-span-full text-center text-secondary">此頻道目前沒有影片。</p>';
-                        return;
-                    }
-
-                    videosData.items.forEach((item, index) => {
-                        const videoId = item.contentDetails.videoId;
-                        const title = item.snippet.title;
-                        const publishedAt = new Date(item.snippet.publishedAt);
-                        // 格式化發布日期和時間
-                        const formattedDate = publishedAt.toLocaleDateString('zh-TW', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                        const formattedTime = publishedAt.toLocaleTimeString('zh-TW', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            hour12: false // 24小時制
-                        });
-                        const dateTimeString = `${formattedDate} ${formattedTime}`;
-
-                        // 檢查縮圖是否存在，否則使用佔位圖
-                        const thumbnailUrl = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : 'https://placehold.co/480x360/cccccc/333333?text=No+Thumbnail';
-                        const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-
-                        const videoCard = `
-                            <div class="video-card p-4 rounded-2xl shadow-md flex flex-col items-center text-center animate-fadeIn" style="animation-delay: ${0.8 + index * 0.1}s;">
-                                <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="block w-full">
-                                    <img src="${thumbnailUrl}" 
-                                         alt="${title}" 
-                                         class="w-full h-40 object-cover rounded-xl mb-4 shadow-sm"
-                                         onerror="this.onerror=null;this.src='https://placehold.co/480x360/cccccc/333333?text=Video+Thumbnail+Not+Found';">
-                                    <h3 class="text-lg font-semibold line-clamp-2">${title}</h3>
-                                    <p class="text-sm mt-1">${dateTimeString} 發布</p>
-                                </a>
-                            </div>
-                        `;
-                        videosContainer.innerHTML += videoCard;
-                    });
-
-                } catch (error) {
-                    console.error('Error fetching YouTube videos:', error);
-                    errorMessage.textContent = `加載影片時發生錯誤：${error.message}。請檢查您的 API Key 或網路連線。`;
-                    errorMessage.classList.remove('hidden');
-                } finally {
-                    loadingMessage.classList.add('hidden'); // 無論成功失敗都隱藏加載訊息
+            // 為全螢幕卡片頁面添加滑鼠/觸控火花特效
+            fullscreenCardPage.addEventListener('mousemove', (e) => {
+                // 限制火花生成頻率
+                if (Math.random() < 0.3) { // 約 30% 機會生成火花
+                    createSparkle(e.clientX, e.clientY);
                 }
-            }
-
-            // Parallax Effect (視差特效)
-            const parallaxContainer = document.getElementById('parallax-container');
-            const parallaxStrength = 15; // 調整視差效果的強度 (像素)
-
-            document.body.addEventListener('mousemove', (e) => {
-                const rect = parallaxContainer.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-
-                // 計算相對於中心點的位移
-                const moveX = (mouseX - centerX) / window.innerWidth * parallaxStrength;
-                const moveY = (mouseY - centerY) / window.innerHeight * parallaxStrength;
-
-                // 應用 transform 屬性
-                parallaxContainer.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
             });
-
-            // Reset parallax on mouse leave
-            document.body.addEventListener('mouseleave', () => {
-                parallaxContainer.style.transform = `translate3d(0, 0, 0)`;
+            fullscreenCardPage.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0 && Math.random() < 0.3) {
+                    createSparkle(e.touches[0].clientX, e.touches[0].clientY);
+                }
             });
-        });
+        };
     </script>
 </body>
 </html>
